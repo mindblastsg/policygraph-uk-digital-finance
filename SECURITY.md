@@ -15,3 +15,8 @@ Include the affected component/version, impact, reproduction steps, and any sugg
 The POC is read-only, uses public policy material, and does not require secrets in CI. Remote documents remain untrusted input. Please report injection paths, unsafe parsing, dependency vulnerabilities, data exposure, provenance bypasses, and routes that enable unintended writes.
 
 The repository runs a deterministic credential-pattern scan in CI. It is a backstop, not a substitute for platform secret scanning or contributor review.
+
+The supported standalone configuration runs the application as a non-root user
+with a read-only filesystem, no added Linux capabilities and privilege escalation
+disabled. Operators exposing it publicly remain responsible for HTTPS termination,
+network access controls, image updates, dependency monitoring and log handling.

@@ -31,6 +31,8 @@ pipeline/            Operating notes and contracts
 app/                 Static accessible interface
 evals/               Golden set, evaluation runner, reports schema
 docs/                Product contract, architecture, decisions, risks
+Dockerfile           Multi-stage build for the installed application artefact
+compose.yaml         Hardened standalone runtime defaults
 ```
 
 Upstream workspace reference directories are outside this architecture and must never be copied, modified, or published.
@@ -59,5 +61,20 @@ Core records include stable IDs, labels, dates where applicable, historical docu
 - CI has read-only repository permissions, no secrets, and no live network/model dependency.
 - Source excerpts are minimised and included only after a documented rights review; original publishers retain rights in source material.
 - Invalid or orphaned evidence fails the build instead of being silently omitted.
+- The standalone application image runs as UID 10001; the recommended Compose
+  configuration removes Linux capabilities, blocks privilege escalation and uses
+  a read-only root filesystem.
+
+## Runtime distribution
+
+The Docker build creates the project wheel and its dependency wheels in a builder
+stage, then installs them into a separate Python runtime image. Source code, tests,
+development caches and build tools are not copied wholesale into the runtime
+stage. The image contains the same application assets and bounded graph verified
+by the installed-package test.
+
+GitHub Pages is a separate static distribution of the browser client and sample
+graph. It provides a low-friction research surface but no API. The OCI image is
+the canonical full-stack artefact and has no hosting-provider dependency.
 
 Implementation choices are recorded in the [decision log](product/decision-log.md).

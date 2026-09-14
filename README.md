@@ -58,6 +58,8 @@ app/                  Accessible same-origin web experience
 evals/                Reviewer-authored golden set and executable release gates
 data/                 Curated registry, synthetic fixtures, and sample graph
 .github/               Open-source community and automation configuration
+Dockerfile             Provider-neutral, non-root application image
+compose.yaml           One-command standalone container runtime
 ```
 
 Any upstream workspace reference directory is deliberately excluded from this publishable repository. Only files intentionally created inside this repository belong in a release.
@@ -81,18 +83,45 @@ Any upstream workspace reference directory is deliberately excluded from this pu
 
 PolicyGraph is a research and navigation aid, not legal advice. AI-assisted extraction must remain reviewable, source-linked, evaluated, and replaceable. Confidence scores are not substitutes for evidence. The demo uses a small, curated public-source corpus and states coverage limits prominently.
 
-## Run the functional alpha
+## Run the functional alpha with Docker
 
 ![Concept visual of the transparent PolicyGraph path from curated sources through validation to the API and explorer](docs/assets/screenshots/04-ingestion-pipeline-concept.png)
 
-Install the project in an isolated Python 3.12 environment, then start the app:
+Docker is the supported standalone runtime. Build and start the full interface and
+read-only API with one command:
+
+```bash
+docker compose up --build
+```
+
+Open <http://127.0.0.1:8000>. Stop it with `docker compose down`. The container
+runs as an unprivileged user, includes a health check, and is configured by Compose
+with a read-only filesystem, no Linux capabilities and no-new-privileges.
+
+To use Docker without Compose:
+
+```bash
+docker build --tag policygraph:local .
+docker run --rm --publish 8000:8000 --read-only --tmpfs /tmp:rw,size=16m \
+  --cap-drop ALL --security-opt no-new-privileges policygraph:local
+```
+
+The same process serves the interface and `/api/*`; interactive API documentation
+is at `/docs`, and container health is reported by `/api/health`. No external
+database, API key or hosted service is required. See the [deployment and container
+operations guide](docs/deployment.md) for custom graph data and verification.
+
+### Local contributor mode
+
+For pipeline development outside Docker, install the project in an isolated Python
+3.12 environment and start the app:
 
 ```bash
 python -m pip install -e ".[dev]"
 uvicorn policygraph.api:app --host 127.0.0.1 --port 8000
 ```
 
-Open <http://127.0.0.1:8000>. The same process serves the interface and `/api/*`; interactive API documentation is at `/docs`. Run the core offline gates with `python -m pytest tests evals` and `python -m evals.evaluate`. The full release checklist is in [CONTRIBUTING.md](CONTRIBUTING.md).
+Run the core offline gates with `python -m pytest tests evals` and `python -m evals.evaluate`. The full release checklist is in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 The public research alpha is deployed to GitHub Pages from a minimal static bundle assembled by the repository workflow. Follow the verification and participant protocol in [the deployment guide](docs/deployment.md). The deployed interface includes a structured public feedback route and continues to label the data as a bounded synthetic sample.
 

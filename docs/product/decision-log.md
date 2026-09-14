@@ -33,9 +33,9 @@ Decisions are lightweight architecture/product decision records. “Accepted” 
 ## ADR-005 — Same-origin API and UI
 
 - **Status:** Accepted
-- **Decision:** Serve the implemented static interface and API from one FastAPI application.
-- **Why:** It keeps the POC deployable and avoids unnecessary CORS and multi-service complexity.
-- **Trade-off:** Independent frontend deployment is deferred.
+- **Decision:** Serve the full interface and API from one FastAPI application, while building a static-data edition of the same client for public research sessions.
+- **Why:** The container avoids unnecessary CORS and multi-service complexity; the static edition remains usable without operating a public API.
+- **Trade-off:** The static edition cannot expose API routes or accept runtime data changes.
 
 ## ADR-006 — Status is a domain field, not prose
 
@@ -50,3 +50,10 @@ Decisions are lightweight architecture/product decision records. “Accepted” 
 - **Decision:** Do not copy upstream workspace reference directories. Store only curated metadata, rights-reviewed fixtures, and derived demo records intended for publication.
 - **Why:** Prevent accidental publication of workspace-only or third-party material.
 - **Trade-off:** Reproduction may fetch original sources separately.
+
+## ADR-008 — Provider-neutral container runtime
+
+- **Status:** Accepted
+- **Decision:** Distribute the full application as a single non-root OCI image with a hardened local Compose configuration and no provider-specific deployment manifest.
+- **Why:** Contributors can reproduce and operate the same artefact on a laptop, server or container platform without adopting a particular hosting vendor.
+- **Trade-off:** Operators own TLS termination, public routing, updates and capacity management.

@@ -41,3 +41,29 @@ jobs:
         run: |
           python -m build
           python scripts/verify_wheel.py
+
+  container:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Build standalone image
+        run: docker build --tag policygraph:test .
+      - name: Smoke-test image
+        run: |
+          docker run --detach --name policygraph-test --publish 127.0.0.1:8000:8000 \
+            --read-only --tmpfs /tmp:rw,size=16m --cap-drop ALL \
+            --security-opt no-new-privileges policygraph:test
+          trap 'docker logs policygraph-test; docker rm --force policygraph-test' EXIT
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:8000/api/health | grep --quiet '"status":"ok"'; then
+              test "$(docker exec policygraph-test id -u)" = "10001"
+              curl --fail --silent http://127.0.0.1:8000/api/graph > /dev/null
+              curl --fail --silent http://127.0.0.1:8000/ > /dev/null
+              exit 0
+            fi
+            sleep 1
+          done
+          exit 1

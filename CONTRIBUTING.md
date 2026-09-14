@@ -40,10 +40,16 @@ python scripts/check_secrets.py
 node --check app/assets/app.js
 python -m build
 python scripts/verify_wheel.py
+docker build --tag policygraph:test .
 ```
 
 The test command names both suites explicitly: missing API tests cannot be treated as an optional discovery result. Tests and evaluations are offline and require no credentials.
 
 The distribution check installs the built wheel and its runtime dependencies into a fresh temporary environment, then loads the installed API/assets and installs the example adapter wheel to exercise its bundled fixture. Dependency installation needs access to a Python package index, or a pre-populated wheel cache configured through `PIP_FIND_LINKS` and `PIP_NO_INDEX`.
+
+The container build is required when changing runtime dependencies, application
+assets, sample data or the Docker configuration. CI starts the resulting image and
+checks the health, graph and interface endpoints, so contributors without a local
+Docker engine can still rely on the pull-request result.
 
 For ingestion contributions, start with the [adapter guide](docs/contributors/building-an-adapter.md), [starter package](examples/source-adapter/README.md), and [source-adapter proposal form](.github/ISSUE_TEMPLATE/source-adapter.yml). You can also contribute source metadata, reviewed evidence, tests and documentation without running a model.

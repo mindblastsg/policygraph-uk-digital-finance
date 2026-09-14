@@ -24,7 +24,7 @@ Interview analysts before fixing the ontology; validate accessible graph pattern
 
 ## Phase 3 update
 
-The functional alpha now turns the deterministic graph into an inspectable product experience. Topic filters lead to typed relationships, quoted evidence, explicit status, and primary-source links; the read-only API also exposes entity, event, relationship, source, and full-graph views. Keeping API and static UI in one service reduced deployment surface and avoided CORS configuration. Structural accessibility checks cover keyboard-native controls and empty/error copy, but assistive-technology testing and the benchmark user task remain unvalidated.
+The functional alpha now turns the deterministic graph into an inspectable product experience. Topic filters lead to typed relationships, quoted evidence, explicit status, and primary-source links; the read-only API also exposes entity, event, relationship, source, and full-graph views. One client now supports a same-origin container runtime and a static-data public research edition without introducing CORS or separate frontend code. Structural accessibility checks cover keyboard-native controls and empty/error copy, but assistive-technology testing and the benchmark user task remain unvalidated.
 
 ## Phase 4 update
 
