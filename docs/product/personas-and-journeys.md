@@ -2,6 +2,10 @@
 
 ## Primary persona — Maya, policy analyst
 
+![Concept storyboard of Maya moving from framing a policy question through discovery and verification to an evidence-backed briefing](../assets/screenshots/05-analyst-journey-concept.png)
+
+> **Concept visual:** AI-generated illustration of the intended journey, not a usability-test recording or production screenshot.
+
 Maya prepares time-sensitive briefings for senior decision-makers. She is comfortable reading legislation and regulator publications but cannot manually reconstruct every cross-institution dependency. She values primary evidence, dates, policy status, and defensible wording above novelty.
 
 **Core job:** build an accurate account of how a UK digital-finance policy evolved and who acted.

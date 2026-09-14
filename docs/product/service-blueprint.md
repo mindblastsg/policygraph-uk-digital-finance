@@ -1,5 +1,9 @@
 # Service blueprint
 
+![Concept visual of a human-review workspace validating a synthetic Digital Securities Sandbox claim and blocking orphaned evidence](../assets/screenshots/06-human-review-workspace-concept.png)
+
+> **Concept visual:** AI-generated future-state review workflow. The functional alpha provides deterministic validation gates but does not ship this review console.
+
 | Layer | Discover | Explore | Verify | Reproduce |
 |---|---|---|---|---|
 | User action | Choose topic/entity | Inspect linked event and relationship cards | Open claim evidence | Review dataset build |

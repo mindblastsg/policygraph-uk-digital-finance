@@ -48,6 +48,10 @@ Publish aggregate results plus failure categories and known limitations. Do not 
 
 ## Automated POC result
 
+![Concept evaluation dashboard showing the bounded synthetic golden-set metrics and actual four-record sample scope](../assets/screenshots/07-evaluation-dashboard-concept.png)
+
+> **Concept visual:** AI-generated dashboard representation of the executable evaluation output. It is not evidence of production accuracy or user value.
+
 The versioned reviewer-authored expectations live in `evals/golden.json`; they include exact source IDs, evidence locators, quotes, historical status dates, and supported relationships. `python -m evals.evaluate` checks citation correctness against those judgments and measures both relationship precision and recall, so changing evidence or deleting an expected edge fails. This proves regression resistance for a bounded synthetic sample—not general extraction quality.
 
 The current bounded fixture run reports 100% provenance completeness, reviewer-approved citation agreement, claim/entity/relationship precision, and relationship recall, with zero status-critical errors and unsupported claims or relationships. These values describe agreement with the deliberately small reviewed fixture set. They must not be presented as real-corpus accuracy. Product-usability targets remain untested until five moderated sessions are completed.
