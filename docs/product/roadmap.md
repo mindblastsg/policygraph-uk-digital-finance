@@ -1,5 +1,15 @@
 # Roadmap
 
+## Long-term product epic
+
+![Concept mind-map of the larger PolicyGraph platform, spanning source intelligence, temporal knowledge graphs, AI capabilities, trust and governance, user experiences, platform workflows and future policy domains](../assets/screenshots/08-epic-roadmap-concept.png)
+
+> **Concept visual:** AI-generated map of the larger, domain-general PolicyGraph ambition. With the exception of the small UK digital-finance proving ground, these capabilities and domains are explicitly outside the v0.1.0 POC and are not delivery commitments.
+
+The longer-term epic is a traceable public-policy intelligence platform: continuously updated primary sources become temporal entities, events and relationships; AI supports structured extraction and evidence-linked synthesis; and users can ask, explore, compare and monitor policy change while inspecting the system's workings. Potential domains include AI regulation, payments, financial stability, climate finance, competition, sovereign debt, a wider World Factbook and financial-crisis archives.
+
+## POC delivery roadmap
+
 This is an outcome-led delivery roadmap; dates are intentionally unset until ownership and capacity are confirmed.
 
 Version 0.1.0 is the functional alpha described in the delivered rows below. It is not a validated MVP and does not contain a live AI extractor.
