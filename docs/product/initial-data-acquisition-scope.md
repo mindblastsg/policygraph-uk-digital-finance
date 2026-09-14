@@ -31,7 +31,7 @@ The main date window is **1 January 2020 onward**. Earlier instruments are inclu
 | --- | --- | --- | --- |
 | 1 | legislation.gov.uk | Structured XML/HTML representations and stable instrument identifiers | UK Public General Acts and UK Statutory Instruments returned by the topic discovery set, including enacted and revised representations where available |
 | 1 | GOV.UK / HM Treasury | GOV.UK Content API by reviewed content path | Consultations, responses, policy papers, speeches and implementation updates directly related to an included topic |
-| 2 | Financial Conduct Authority | Publisher adapter after robots, terms and format review | Consultations, policy statements, discussion papers and final rules selected from a reviewed seed list |
+| 2 | Financial Conduct Authority | Authenticated Handbook API after account/terms review; reviewed seed-list adapter for other FCA publications | Current/future Handbook content plus consultations, policy statements and discussion papers directly related to the included topics; do not infer historical Handbook coverage from the API |
 | 2 | Bank of England and PRA | Publisher adapter after robots, terms and format review | Sandbox, stablecoin, wholesale-settlement and prudential publications selected from a reviewed seed list |
 | 3 | UK Parliament | Metadata and documents referenced by accepted primary sources | Bills, committee material and explanatory evidence needed to connect an included policy chronology |
 
@@ -99,5 +99,8 @@ Expand beyond the 100-document ceiling only if the adapters are repeatable, righ
 
 - [GOV.UK Content API overview](https://content-api.publishing.service.gov.uk/)
 - [GOV.UK Content API reference](https://content-api.publishing.service.gov.uk/reference.html)
+- [legislation.gov.uk developer guidance](https://www.legislation.gov.uk/developer)
+- [FCA Handbook API launch and access conditions](https://handbook.fca.org.uk/latest-news/news-details/8e0653c7-1376-44b8-8bf1-9b41130dc50c)
+- [UK Parliament developer hub](https://developer.parliament.uk/)
 - [UK Government Licensing Framework](https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/)
 - [Open Government Licence](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/)

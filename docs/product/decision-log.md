@@ -57,3 +57,17 @@ Decisions are lightweight architecture/product decision records. “Accepted” 
 - **Decision:** Distribute the full application as a single non-root OCI image with a hardened local Compose configuration and no provider-specific deployment manifest.
 - **Why:** Contributors can reproduce and operate the same artefact on a laptop, server or container platform without adopting a particular hosting vendor.
 - **Trade-off:** Operators own TLS termination, public routing, updates and capacity management.
+
+## ADR-009 — Separate ingestion, mapping, retrieval and synthesis
+
+- **Status:** Accepted
+- **Decision:** Evaluate source acquisition, semantic mapping, evidence retrieval and generated synthesis as separate layers with independent artefacts and gates.
+- **Why:** A document being fetched does not prove its meaning was extracted correctly; relevant retrieval does not prove that a generated statement is supported.
+- **Trade-off:** Delivery has more explicit checkpoints and cannot present an end-to-end AI demonstration before its component claims pass.
+
+## ADR-010 — Bounded local retrieval before managed vector infrastructure
+
+- **Status:** Accepted
+- **Decision:** Benchmark lexical, embedding and hybrid retrieval over identical provision-level chunks using versioned local artefacts before selecting a hosted vector database.
+- **Why:** The first 60–100-document corpus tests retrieval value and trust, not distributed index scale.
+- **Trade-off:** Large-corpus performance and multi-user index operations remain untested.

@@ -16,5 +16,8 @@ Likelihood and impact use Low/Medium/High planning estimates. Owners are roles u
 | R10 | Sensitive values enter repository | L | H | No secrets in CI; pre-release scan; least privilege | Secret-pattern detection | Maintainer |
 | R11 | Accessibility blocks graph use | M | H | Keyboard support; list alternative; user testing | Task failure with assistive workflow | Design lead |
 | R12 | Metric targets encourage shallow coverage | M | M | Pair speed with provenance/status gates | Faster tasks but trust errors | Product lead |
+| R13 | Enacted, revised, effective and historical document states are collapsed | M | H | Immutable source versions; separate made/publication/event/effective/status dates; reviewer gate | Conflicting versions or a current-law claim derived from historical material | Policy lead |
+| R14 | Semantic similarity is presented as factual support | M | H | Keep retrieval distinct from evidence validation and synthesis; require exact locators and statement-level citations | High-ranked passage does not support the displayed claim | Data/ML lead |
+| R15 | Human review cannot keep pace with proposed semantic records | M | M | Bounded corpus, proposal queues, reason codes and review-effort reporting | Growing unreviewed queue or rushed acceptance | Product lead |
 
 Risks are reviewed at each phase exit and after any evaluation failure. A High-impact risk cannot be accepted implicitly; the decision and owner must be recorded.

@@ -31,5 +31,12 @@ Priorities: P0 is required for the first usable POC; P1 supports validation; P2 
 | PG-25 | P1 | As an analyst, I can share why a connection is shown | A stable evidence URL preserves the connection, passage, locator, source and historical status |
 | PG-26 | P1 | As a user, I can inspect method, coverage and evaluation limits | Displayed corpus and evaluation figures trace to committed metadata and remain labelled as synthetic or unvalidated |
 | PG-27 | P2 | As a user, I can explore an optional visual map without losing an accessible route | The map and list/table expose equivalent records, evidence and keyboard actions |
+| PG-28 | P1 | As a data steward, I can review every discovered source candidate | Candidate state, rights decision, reviewer and stable reason are schema-validated; no silent inclusion or rejection |
+| PG-29 | P1 | As an operator, I can acquire an accepted source safely and repeatably | Host, redirect, type, size, timeout and rate controls pass; body hash and complete fetch outcome enter the ledger |
+| PG-30 | P1 | As a reviewer, I can recover the exact source structure behind a chunk | Every published chunk round-trips to an immutable source version, block and evidence span |
+| PG-31 | P1 | As a policy reviewer, I approve semantic meaning before publication | Only accepted entity, claim, event and connection proposals enter the graph; edits/rejections retain decisions |
+| PG-32 | P1 | As an evaluator, I can measure a transparent retrieval baseline | Twenty-five held-back questions report keyword recall@10, first-relevant position, citation agreement and latency |
+| PG-33 | P2 | As an evaluator, I can determine whether embeddings improve retrieval | Lexical, embedding and hybrid approaches use identical chunks, questions, filters and top-k with versioned artefacts |
+| PG-34 | P2 | As an analyst, I receive synthesis only when each statement is supported | Every material statement has inspectable evidence; unsupported/status-critical outputs are zero; insufficient evidence abstains |
 
 Implementation ordering follows the [roadmap](roadmap.md); definitions of success are in the [evaluation plan](evaluation-plan.md).

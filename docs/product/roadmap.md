@@ -29,6 +29,27 @@ Phases 1–4 are the recommended next demonstration cut. Phase 5 is a mandatory
 decision checkpoint. A visual graph, briefing export and semantic retrieval are not
 default next steps merely because they appear in concept artwork.
 
+## Data ingestion and semantic mapping roadmap
+
+The detailed sequence is in the [data ingestion and semantic mapping
+roadmap](../../plans/02-ingestion-semantic-roadmap.md). It treats ingestion,
+semantic mapping, retrieval and synthesis as separately evaluated product claims.
+
+| Phase | Outcome | Deliverables | Exit evidence |
+| --- | --- | --- | --- |
+| 1 — Govern discovery | Create a reviewed, rights-aware candidate set | Candidate/decision schemas, source-native IDs, discovery fixtures, coverage report | At most 250 candidates; every inclusion/rejection reviewed; no silent drops |
+| 2 — Acquire safely | Fetch accepted sources repeatably | Guarded adapters, immutable cache, conditional requests, fetch ledger | At least 95% refetch/cache repeatability; host/rate/type/size controls pass |
+| 3 — Preserve structure | Make every passage recoverable | Normalised documents, provision/block locators, structural chunks | Every chunk round-trips to an immutable source version and exact span |
+| 4 — Map meaning | Publish only reviewed semantic records | Ontology v2, entity registry, proposed claims/events/connections, decision log | 100% provenance; ≥90% citation/entity/relationship precision; zero blocker errors |
+| 5 — Release real corpus | Replace the synthetic-only evidence base with a bounded reviewed corpus | 60–100 accepted documents, three publishers, five topics, coverage/failure reports | All acquisition-scope release gates pass |
+| 6 — Measure lexical retrieval | Establish the transparent baseline | 25 held-back questions, keyword index, filters, ranked evidence passages | Recall@10, first-relevant rank, citation agreement, latency and failures reported |
+| 7 — Test semantic retrieval | Determine whether embeddings/hybrid search add value | Versioned local vector artefact and lexical/embedding/hybrid comparison | Predeclared improvement over lexical without trust, repeatability or latency regression |
+| 8 — Test synthesis conditionally | Determine whether cited synthesis helps briefing work | Atomic cited statements, abstention, evidence-first comparison | Zero unsupported/status-critical output and measurable user benefit |
+| 9 — Verify and decide | Continue, iterate, narrow or stop using evidence | Reproducible rebuild, full quality audit and decision memo | Technical, rights, user-value and operating-cost evidence supports the decision |
+
+Phases 1–5 are the next ingestion cut. Phases 6–7 are a separate semantic-research
+experiment. Phase 8 is not authorised for public use merely because retrieval works.
+
 ## POC delivery roadmap
 
 This is an outcome-led delivery roadmap; dates are intentionally unset until ownership and capacity are confirmed.

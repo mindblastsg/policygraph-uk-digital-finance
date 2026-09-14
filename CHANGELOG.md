@@ -9,6 +9,7 @@ All notable changes are documented here. Before 1.0, breaking contract changes m
 - Add a GitHub Pages build and deployment workflow with a static graph fallback.
 - Scope the first real-data acquisition increment, corpus limits and semantic-research handoff.
 - Add a policy-official frontend roadmap with page-level outcomes, evidence gates and conditional expansion criteria.
+- Add a gated ingestion and semantic-mapping roadmap from reviewed discovery through evidence-linked synthesis.
 
 ## [0.2.0] - 2026-09-14
 
