@@ -23,6 +23,8 @@ Version 0.2.0 is the functional POC described in the delivered rows below. It is
 | Delivered — Functional alpha | Let users explore and verify the sample | FastAPI service, accessible web UI, linked topic/entity/event/relationship/source cards | API tests; structural keyboard and empty/error-state checks |
 | Delivered — Engineering validation | Make the bounded POC reproducible and release-checkable | Golden-set evals, quality gates, relocatable package, least-privilege CI | Automated fixture gates and distribution checks pass |
 | Delivered — Reusable ingestion SDK | Enable external contributions and reuse | Adapter protocol, plugin discovery, schemas, starter package, contribution guides | Contract tests, packaged fixture and installed-wheel validation |
+| Delivered — Public research alpha | Put the bounded explorer in front of users | GitHub Pages deployment, static graph fallback, structured feedback route | Public HTTPS checks and responsive interaction verification pass |
+| Next — Acquire the first real corpus | Test source adapters and provenance on authoritative material | 60–100 accepted documents under the bounded [initial acquisition scope](initial-data-acquisition-scope.md) | Corpus, rights, repeatability and citation gates pass |
 | Then — Validate the MVP | Determine whether the functional alpha solves the user problem | Five moderated sessions and real-corpus evaluation | All mandatory thresholds in the evaluation plan pass and are reported honestly |
 | Later — Learn and decide | Choose expand, pivot, or stop | Coverage experiments, workflow export research, operating-cost model | Decision memo based on observed evidence |
 

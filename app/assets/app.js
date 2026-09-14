@@ -59,18 +59,55 @@ function section(id, heading, cards, emptyMessage) {
   return `<section id="${id}" class="result-group"><h3>${heading}</h3>${cards ? `<div class="grid">${cards}</div>` : `<p class="empty">${emptyMessage} This does not mean there has been no policy activity.</p>`}</section>`;
 }
 
+function topicsFromGraph(graphData) {
+  const names = new Set();
+  ['sources', 'claims', 'events', 'relationships'].forEach(collection => {
+    graphData[collection].forEach(item => item.topics.forEach(name => names.add(name)));
+  });
+  return [...names].sort((left, right) => left.localeCompare(right)).map(name => {
+    const relationships = graphData.relationships.filter(item => item.topics.includes(name));
+    return {
+      name,
+      source_ids: [...new Set(graphData.sources.filter(item => item.topics.includes(name)).map(item => item.id))].sort(),
+      entity_ids: [...new Set(relationships.flatMap(item => [item.source_entity_id, item.target_entity_id]))].sort(),
+      event_ids: [...new Set(graphData.events.filter(item => item.topics.includes(name)).map(item => item.id))].sort()
+    };
+  });
+}
+
+async function loadData() {
+  const staticMode = document.querySelector('meta[name="policygraph-data-mode"]')?.content === 'static';
+  if (!staticMode) {
+    try {
+      const [topicResponse, graphResponse] = await Promise.all([fetch('/api/topics'), fetch('/api/graph')]);
+      if (!topicResponse.ok || !graphResponse.ok) throw new Error('API unavailable');
+      return {topicData: await topicResponse.json(), graphData: await graphResponse.json(), staticMode: false};
+    } catch (_) {
+      // A static fallback keeps local file-server previews usable without an API.
+    }
+  }
+  const graphResponse = await fetch('data/graph.json');
+  if (!graphResponse.ok) throw new Error('Static graph unavailable');
+  const graphData = await graphResponse.json();
+  return {topicData: topicsFromGraph(graphData), graphData, staticMode: true};
+}
+
 async function start() {
   try {
-    const [topicResponse, graphResponse] = await Promise.all([fetch('/api/topics'), fetch('/api/graph')]);
-    if (!topicResponse.ok || !graphResponse.ok) throw new Error('response');
-    const topicData = await topicResponse.json(); graph = await graphResponse.json();
+    const {topicData, graphData, staticMode} = await loadData();
+    graph = graphData;
+    if (staticMode) {
+      const documentation = document.querySelector('#documentation-link');
+      documentation.href = 'https://github.com/mindblastsg/policygraph-uk-digital-finance#start-here';
+      documentation.textContent = 'Project documentation';
+    }
     if (!topicData.length) { topics.innerHTML = '<p class="empty">No topics are covered by the current sample.</p>'; return; }
     topics.innerHTML = '';
     const requested = new URL(window.location.href).searchParams.get('topic'); let selected;
     topicData.forEach(topic => { const button = document.createElement('button'); button.className = 'topic'; button.type = 'button'; button.setAttribute('aria-pressed','false'); button.textContent = topic.name; button.addEventListener('click', () => { try { renderTopic(topic, button); } catch (_) { content.innerHTML = '<p class="error" role="alert">This topic could not be displayed safely.</p>'; } }); topics.append(button); if (topic.name === requested) selected = button; });
     (selected || topics.querySelector('.topic')).click();
   } catch (_) {
-    topics.innerHTML = '<p class="error" role="alert">The sample graph could not be loaded. Try refreshing, or check the API health endpoint.</p>';
+    topics.innerHTML = '<p class="error" role="alert">The sample graph could not be loaded. Try refreshing, or check the deployment status.</p>';
   }
 }
 start();

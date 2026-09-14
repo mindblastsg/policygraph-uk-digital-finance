@@ -22,5 +22,9 @@ Priorities: P0 is required for the first usable POC; P1 supports validation; P2 
 | PG-16 | P2 | As an analyst, I can export an evidence trail | Export preserves citations and status labels |
 | PG-17 | P2 | As a maintainer, I can compare extractor versions | Versioned eval results show regressions |
 | PG-18 | P2 | As a team, we can assess broader coverage | Expansion experiment measures marginal value and cost |
+| PG-19 | P1 | As a researcher, I can open the alpha without local setup | GitHub Pages publishes the bounded explorer over public HTTPS |
+| PG-20 | P1 | As a participant, I can submit structured product feedback | Public form captures task outcome, confidence, usefulness and missing coverage without requesting sensitive data |
+| PG-21 | P1 | As a data lead, I can acquire a bounded real corpus | 60–100 reviewed documents meet the initial acquisition and provenance gates |
+| PG-22 | P1 | As an evaluator, I can compare retrieval approaches | Keyword, embedding and hybrid retrieval run against the same 25-question held-back set |
 
 Implementation ordering follows the [roadmap](roadmap.md); definitions of success are in the [evaluation plan](evaluation-plan.md).

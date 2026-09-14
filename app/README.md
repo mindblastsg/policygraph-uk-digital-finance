@@ -2,6 +2,8 @@
 
 The functional-alpha interface is a dependency-free HTML, CSS, and JavaScript client served by the FastAPI application on the same origin. It progressively discloses the committed sample graph by topic, relationship, evidence quote, policy status, and primary source.
 
+The same client is deployed to GitHub Pages. It attempts the same-origin API first and falls back to the published `data/graph.json` bundle when no dynamic API is available. Build the static artifact with `python scripts/build_pages.py --output _site`.
+
 Run `uvicorn policygraph.api:app --host 127.0.0.1 --port 8000` after an editable install and open <http://127.0.0.1:8000>. The UI requires JavaScript for exploration; API data remains available through `/docs` and `/api/graph`.
 
 Accessibility provisions include semantic headings and landmarks, a skip link, native button controls, visible focus, live loading state, readable contrast, and explicit empty/error messages. Evidence is statically inline in cards. Automated checks cover structure; assistive-technology and moderated usability testing remain future work.

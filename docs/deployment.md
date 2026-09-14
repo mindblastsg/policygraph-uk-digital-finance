@@ -1,33 +1,53 @@
 # Public alpha deployment
 
-PolicyGraph's interface and read-only API run as one FastAPI web service. The
-repository's `render.yaml` is the deployment source of truth for the public
-alpha: Python 3.12, the Frankfurt region, a free web-service instance, a
-graph-aware health check, and deployment only after GitHub checks pass.
+The public research alpha is hosted by GitHub Pages at
+<https://mindblastsg.github.io/policygraph-uk-digital-finance/>. It contains the
+dependency-free explorer and bounded sample graph; it does not expose a Python
+server or the FastAPI documentation.
 
-## Deploy on Render
+## Deployment path
 
-1. In Render, choose **New > Blueprint** and connect this GitHub repository.
-2. Select the `main` branch and leave the Blueprint path as `render.yaml`.
-3. Review the proposed `policygraph-uk-digital-finance` web service.
-4. Deploy the Blueprint and wait for `/api/health` to report
-   `{"status":"ok","graph_loaded":true}`.
-5. Verify `/`, `/api/topics`, `/api/graph`, and `/docs` on the issued HTTPS
-   address before inviting research participants.
+The `pages` workflow runs on each push to `main` and can also be started
+manually. It:
 
-No secrets, database, persistent disk, or live source credentials are required
-for the bounded synthetic alpha. Render's free service can sleep while idle, so
-the first request after inactivity may take longer. Use a paid always-on plan
-only if that delay materially affects research sessions.
+1. checks out the repository with persisted credentials disabled;
+2. assembles only `app/index.html`, the browser assets and
+   `data/sample/graph.json` into `_site`;
+3. runs the static-bundle test;
+4. uploads the Pages artifact; and
+5. deploys through the protected `github-pages` environment.
+
+The browser first attempts the same-origin API used in local development, then
+falls back to `data/graph.json` when hosted statically. This preserves one UI
+implementation while keeping the contributor-facing FastAPI service testable.
+No secrets, database, payment method or live source credentials are required.
+
+## Verification checklist
+
+- `/` loads over HTTPS without authentication.
+- All five topic controls appear and can be selected by keyboard.
+- DSS, stablecoin and cryptoasset topics show evidence-linked sample records.
+- DLT and tokenisation show their explicit sample-coverage limitation.
+- Primary-source links pass the browser allowlist and open separately.
+- The feedback link opens the structured GitHub issue form.
+- A 390-pixel viewport has no horizontal overflow.
+- The browser console has no errors after a topic selection.
 
 ## Initial-insight protocol
 
 Ask each participant to choose a topic, identify one policy relationship, open
 its evidence, and explain whether they would trust it in a briefing. Record
 task completion, time to evidence, source opens, misunderstandings, and missing
-coverage. The interface links to a structured public feedback form; participants
-must not include personal, confidential, or legally sensitive information.
+coverage. Participants can use the structured public feedback form, but must
+not include personal, confidential, privileged, or legally sensitive
+information.
 
 The deployment remains a research demonstration. It does not make the synthetic
 sample complete, current, legally authoritative, or representative of a
 production semantic-research service.
+
+## Dynamic-service option
+
+`render.yaml` remains available for contributors who want the FastAPI interface
+and `/api/*` routes on a dynamic host. It is not used by the public alpha and a
+hosting provider may require separate account or billing verification.
