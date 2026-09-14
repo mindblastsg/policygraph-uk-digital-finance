@@ -1,0 +1,309 @@
+{
+  "claims": [
+    {
+      "evidence": {
+        "document_id": "doc-hmt-crypto-future-regime-2023",
+        "quote": "The consultation set out proposals for a future cryptoasset regulatory regime.",
+        "section": "line:2"
+      },
+      "id": "claim-crypto-1",
+      "object": "Cryptoasset regulatory regime",
+      "predicate": "consulted_on",
+      "source_id": "hmt-crypto-future-regime-2023",
+      "status": "consultation",
+      "status_as_of": "2023-02-01",
+      "topics": ["cryptoasset regulation"],
+      "subject": "HM Treasury"
+    },
+    {
+      "evidence": {
+        "document_id": "doc-hmt-dss-2023",
+        "quote": "Consultation on a Digital Securities Sandbox.",
+        "section": "line:2"
+      },
+      "id": "claim-dss-1",
+      "object": "Digital Securities Sandbox",
+      "predicate": "consulted_on",
+      "source_id": "hmt-dss-2023",
+      "status": "consultation",
+      "status_as_of": "2023-07-11",
+      "topics": ["Digital Securities Sandbox"],
+      "subject": "HM Treasury"
+    },
+    {
+      "evidence": {
+        "document_id": "doc-hmt-future-financial-services-2022",
+        "quote": "The reforms proposed a financial market infrastructure sandbox.",
+        "section": "line:2"
+      },
+      "id": "claim-edinburgh-1",
+      "object": "DSS",
+      "predicate": "proposed",
+      "source_id": "hmt-future-financial-services-2022",
+      "status": "proposal",
+      "status_as_of": "2022-12-09",
+      "topics": ["Digital Securities Sandbox"],
+      "subject": "HMT"
+    },
+    {
+      "evidence": {
+        "document_id": "doc-hmt-stablecoins-2020",
+        "quote": "The consultation considered the regulatory approach to stable tokens.",
+        "section": "line:2"
+      },
+      "id": "claim-stablecoin-1",
+      "object": "Stablecoin regulation",
+      "predicate": "consulted_on",
+      "source_id": "hmt-stablecoins-2020",
+      "status": "consultation",
+      "status_as_of": "2021-01-07",
+      "topics": ["stablecoins"],
+      "subject": "HM Treasury"
+    }
+  ],
+  "documents": [
+    {
+      "id": "doc-hmt-crypto-future-regime-2023",
+      "published_on": "2023-02-01",
+      "retrieved_from": "fixture://hmt-crypto-future-regime-2023.json",
+      "source_id": "hmt-crypto-future-regime-2023",
+      "synthetic": true,
+      "text": "Future regime\nPOLICYGRAPH_CLAIM: {\"id\":\"claim-crypto-1\",\"subject\":\"HM Treasury\",\"predicate\":\"consulted_on\",\"object\":\"Cryptoasset regulatory regime\",\"status\":\"consultation\",\"quote\":\"The consultation set out proposals for a future cryptoasset regulatory regime.\"}",
+      "title": "Future financial services regulatory regime for cryptoassets"
+    },
+    {
+      "id": "doc-hmt-dss-2023",
+      "published_on": "2023-07-11",
+      "retrieved_from": "fixture://hmt-dss-2023.json",
+      "source_id": "hmt-dss-2023",
+      "synthetic": true,
+      "text": "Sandbox proposal\nPOLICYGRAPH_CLAIM: {\"id\":\"claim-dss-1\",\"subject\":\"HM Treasury\",\"predicate\":\"consulted_on\",\"object\":\"Digital Securities Sandbox\",\"status\":\"consultation\",\"quote\":\"Consultation on a Digital Securities Sandbox.\"}",
+      "title": "Digital Securities Sandbox"
+    },
+    {
+      "id": "doc-hmt-future-financial-services-2022",
+      "published_on": "2022-12-09",
+      "retrieved_from": "fixture://hmt-future-financial-services-2022.json",
+      "source_id": "hmt-future-financial-services-2022",
+      "synthetic": true,
+      "text": "Digital markets\nPOLICYGRAPH_CLAIM: {\"id\":\"claim-edinburgh-1\",\"subject\":\"HMT\",\"predicate\":\"proposed\",\"object\":\"DSS\",\"status\":\"proposal\",\"quote\":\"The reforms proposed a financial market infrastructure sandbox.\"}",
+      "title": "Financial Services: The Edinburgh Reforms"
+    },
+    {
+      "id": "doc-hmt-stablecoins-2020",
+      "published_on": "2021-01-07",
+      "retrieved_from": "fixture://hmt-stablecoins-2020.json",
+      "source_id": "hmt-stablecoins-2020",
+      "synthetic": true,
+      "text": "Stable tokens\nPOLICYGRAPH_CLAIM: {\"id\":\"claim-stablecoin-1\",\"subject\":\"HM Treasury\",\"predicate\":\"consulted_on\",\"object\":\"Stablecoin regulation\",\"status\":\"consultation\",\"quote\":\"The consultation considered the regulatory approach to stable tokens.\"}",
+      "title": "UK regulatory approach to cryptoassets and stablecoins"
+    }
+  ],
+  "entities": [
+    {
+      "aliases": [],
+      "id": "cryptoasset-regulatory-regime",
+      "kind": "policy",
+      "name": "Cryptoasset regulatory regime"
+    },
+    {
+      "aliases": [],
+      "id": "digital-securities-sandbox",
+      "kind": "policy",
+      "name": "Digital Securities Sandbox"
+    },
+    {
+      "aliases": [],
+      "id": "hm-treasury",
+      "kind": "organisation",
+      "name": "HM Treasury"
+    },
+    {
+      "aliases": [],
+      "id": "stablecoin-regulation",
+      "kind": "policy",
+      "name": "Stablecoin regulation"
+    }
+  ],
+  "events": [
+    {
+      "date": null,
+      "evidence": {
+        "document_id": "doc-hmt-crypto-future-regime-2023",
+        "quote": "The consultation set out proposals for a future cryptoasset regulatory regime.",
+        "section": "line:2"
+      },
+      "id": "event-claim-crypto-1",
+      "source_id": "hmt-crypto-future-regime-2023",
+      "status": "consultation",
+      "status_as_of": "2023-02-01",
+      "topics": ["cryptoasset regulation"],
+      "title": "HM Treasury consulted_on Cryptoasset regulatory regime"
+    },
+    {
+      "date": null,
+      "evidence": {
+        "document_id": "doc-hmt-dss-2023",
+        "quote": "Consultation on a Digital Securities Sandbox.",
+        "section": "line:2"
+      },
+      "id": "event-claim-dss-1",
+      "source_id": "hmt-dss-2023",
+      "status": "consultation",
+      "status_as_of": "2023-07-11",
+      "topics": ["Digital Securities Sandbox"],
+      "title": "HM Treasury consulted_on Digital Securities Sandbox"
+    },
+    {
+      "date": null,
+      "evidence": {
+        "document_id": "doc-hmt-future-financial-services-2022",
+        "quote": "The reforms proposed a financial market infrastructure sandbox.",
+        "section": "line:2"
+      },
+      "id": "event-claim-edinburgh-1",
+      "source_id": "hmt-future-financial-services-2022",
+      "status": "proposal",
+      "status_as_of": "2022-12-09",
+      "topics": ["Digital Securities Sandbox"],
+      "title": "HM Treasury proposed Digital Securities Sandbox"
+    },
+    {
+      "date": null,
+      "evidence": {
+        "document_id": "doc-hmt-stablecoins-2020",
+        "quote": "The consultation considered the regulatory approach to stable tokens.",
+        "section": "line:2"
+      },
+      "id": "event-claim-stablecoin-1",
+      "source_id": "hmt-stablecoins-2020",
+      "status": "consultation",
+      "status_as_of": "2021-01-07",
+      "topics": ["stablecoins"],
+      "title": "HM Treasury consulted_on Stablecoin regulation"
+    }
+  ],
+  "fixture_set_sha256": "041691a938a54a77433f076f4fcb15bfe219e350332024758a776ad10bae9a4b",
+  "generator_version": "policygraph-0.1.0",
+  "relationships": [
+    {
+      "claim_id": "claim-crypto-1",
+      "evidence": {
+        "document_id": "doc-hmt-crypto-future-regime-2023",
+        "quote": "The consultation set out proposals for a future cryptoasset regulatory regime.",
+        "section": "line:2"
+      },
+      "id": "rel-claim-crypto-1",
+      "kind": "consulted_on",
+      "source_entity_id": "hm-treasury",
+      "source_id": "hmt-crypto-future-regime-2023",
+      "target_entity_id": "cryptoasset-regulatory-regime"
+      ,"topics": ["cryptoasset regulation"]
+    },
+    {
+      "claim_id": "claim-dss-1",
+      "evidence": {
+        "document_id": "doc-hmt-dss-2023",
+        "quote": "Consultation on a Digital Securities Sandbox.",
+        "section": "line:2"
+      },
+      "id": "rel-claim-dss-1",
+      "kind": "consulted_on",
+      "source_entity_id": "hm-treasury",
+      "source_id": "hmt-dss-2023",
+      "target_entity_id": "digital-securities-sandbox"
+      ,"topics": ["Digital Securities Sandbox"]
+    },
+    {
+      "claim_id": "claim-edinburgh-1",
+      "evidence": {
+        "document_id": "doc-hmt-future-financial-services-2022",
+        "quote": "The reforms proposed a financial market infrastructure sandbox.",
+        "section": "line:2"
+      },
+      "id": "rel-claim-edinburgh-1",
+      "kind": "proposed",
+      "source_entity_id": "hm-treasury",
+      "source_id": "hmt-future-financial-services-2022",
+      "target_entity_id": "digital-securities-sandbox"
+      ,"topics": ["Digital Securities Sandbox"]
+    },
+    {
+      "claim_id": "claim-stablecoin-1",
+      "evidence": {
+        "document_id": "doc-hmt-stablecoins-2020",
+        "quote": "The consultation considered the regulatory approach to stable tokens.",
+        "section": "line:2"
+      },
+      "id": "rel-claim-stablecoin-1",
+      "kind": "consulted_on",
+      "source_entity_id": "hm-treasury",
+      "source_id": "hmt-stablecoins-2020",
+      "target_entity_id": "stablecoin-regulation"
+      ,"topics": ["stablecoins"]
+    }
+  ],
+  "schema_version": "1.0",
+  "sources": [
+    {
+      "content_path": "/government/consultations/future-financial-services-regulatory-regime-for-cryptoassets",
+      "id": "hmt-crypto-future-regime-2023",
+      "kind": "govuk_content",
+      "published_on": "2023-02-01",
+      "publisher": "HM Treasury",
+      "status": "consultation",
+      "status_as_of": "2023-02-01",
+      "title": "Future financial services regulatory regime for cryptoassets",
+      "topics": [
+        "cryptoasset regulation"
+      ],
+      "url": "https://www.gov.uk/government/consultations/future-financial-services-regulatory-regime-for-cryptoassets"
+    },
+    {
+      "content_path": "/government/consultations/digital-securities-sandbox",
+      "id": "hmt-dss-2023",
+      "kind": "govuk_content",
+      "published_on": "2023-07-11",
+      "publisher": "HM Treasury",
+      "status": "consultation",
+      "status_as_of": "2023-07-11",
+      "title": "Digital Securities Sandbox",
+      "topics": [
+        "DLT",
+        "tokenisation",
+        "Digital Securities Sandbox"
+      ],
+      "url": "https://www.gov.uk/government/consultations/digital-securities-sandbox"
+    },
+    {
+      "content_path": "/government/collections/financial-services-the-edinburgh-reforms",
+      "id": "hmt-future-financial-services-2022",
+      "kind": "govuk_content",
+      "published_on": "2022-12-09",
+      "publisher": "HM Treasury",
+      "status": "proposal",
+      "status_as_of": "2022-12-09",
+      "title": "Financial Services: The Edinburgh Reforms",
+      "topics": [
+        "Digital Securities Sandbox",
+        "cryptoasset regulation"
+      ],
+      "url": "https://www.gov.uk/government/collections/financial-services-the-edinburgh-reforms"
+    },
+    {
+      "content_path": "/government/consultations/uk-regulatory-approach-to-cryptoassets-and-stablecoins-consultation-and-call-for-evidence",
+      "id": "hmt-stablecoins-2020",
+      "kind": "govuk_content",
+      "published_on": "2021-01-07",
+      "publisher": "HM Treasury",
+      "status": "consultation",
+      "status_as_of": "2021-01-07",
+      "title": "UK regulatory approach to cryptoassets and stablecoins: consultation and call for evidence",
+      "topics": [
+        "stablecoins",
+        "cryptoasset regulation"
+      ],
+      "url": "https://www.gov.uk/government/consultations/uk-regulatory-approach-to-cryptoassets-and-stablecoins-consultation-and-call-for-evidence"
+    }
+  ]
+}

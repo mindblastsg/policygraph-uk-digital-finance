@@ -1,0 +1,29 @@
+name: Feature request
+description: Propose a user-outcome or trust improvement.
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: User problem
+      description: Who has this problem, and what decision or task is blocked?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Share research, observations, or a testable hypothesis.
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Desired outcome and measure
+    validations:
+      required: true
+  - type: textarea
+    id: risks
+    attributes:
+      label: Provenance, policy-status, accessibility, or safety risks

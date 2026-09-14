@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use PolicyGraph, cite this software and the original policy sources for substantive claims."
+title: "PolicyGraph: UK Digital Finance Policy Explorer"
+type: software
+authors:
+  - name: "mindblastsg"
+repository-code: "https://github.com/mindblastsg/policygraph-uk-digital-finance"
+url: "https://github.com/mindblastsg/policygraph-uk-digital-finance"
+license: MIT
+abstract: >-
+  An open-source AI product-management proof of concept for exploring
+  source-grounded relationships in UK digital-finance policy.
+keywords:
+  - UK digital finance
+  - policy graph
+  - tokenisation
+  - stablecoins
+  - cryptoasset regulation
+  - Digital Securities Sandbox

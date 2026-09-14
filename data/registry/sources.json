@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0",
+  "sources": [
+    {
+      "id": "hmt-dss-2023",
+      "title": "Digital Securities Sandbox",
+      "publisher": "HM Treasury",
+      "url": "https://www.gov.uk/government/consultations/digital-securities-sandbox",
+      "kind": "govuk_content",
+      "content_path": "/government/consultations/digital-securities-sandbox",
+      "topics": ["DLT", "tokenisation", "Digital Securities Sandbox"],
+      "status": "consultation",
+      "status_as_of": "2023-07-11",
+      "published_on": "2023-07-11"
+    },
+    {
+      "id": "hmt-future-financial-services-2022",
+      "title": "Financial Services: The Edinburgh Reforms",
+      "publisher": "HM Treasury",
+      "url": "https://www.gov.uk/government/collections/financial-services-the-edinburgh-reforms",
+      "kind": "govuk_content",
+      "content_path": "/government/collections/financial-services-the-edinburgh-reforms",
+      "topics": ["Digital Securities Sandbox", "cryptoasset regulation"],
+      "status": "proposal",
+      "status_as_of": "2022-12-09",
+      "published_on": "2022-12-09"
+    },
+    {
+      "id": "hmt-stablecoins-2020",
+      "title": "UK regulatory approach to cryptoassets and stablecoins: consultation and call for evidence",
+      "publisher": "HM Treasury",
+      "url": "https://www.gov.uk/government/consultations/uk-regulatory-approach-to-cryptoassets-and-stablecoins-consultation-and-call-for-evidence",
+      "kind": "govuk_content",
+      "content_path": "/government/consultations/uk-regulatory-approach-to-cryptoassets-and-stablecoins-consultation-and-call-for-evidence",
+      "topics": ["stablecoins", "cryptoasset regulation"],
+      "status": "consultation",
+      "status_as_of": "2021-01-07",
+      "published_on": "2021-01-07"
+    },
+    {
+      "id": "hmt-crypto-future-regime-2023",
+      "title": "Future financial services regulatory regime for cryptoassets",
+      "publisher": "HM Treasury",
+      "url": "https://www.gov.uk/government/consultations/future-financial-services-regulatory-regime-for-cryptoassets",
+      "kind": "govuk_content",
+      "content_path": "/government/consultations/future-financial-services-regulatory-regime-for-cryptoassets",
+      "topics": ["cryptoasset regulation"],
+      "status": "consultation",
+      "status_as_of": "2023-02-01",
+      "published_on": "2023-02-01"
+    }
+  ]
+}

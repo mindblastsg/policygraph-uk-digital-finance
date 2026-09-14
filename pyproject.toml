@@ -1,0 +1,57 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "policygraph"
+version = "0.1.0"
+description = "Evidence-first UK digital finance policy graph proof of concept"
+requires-python = ">=3.12"
+license = "MIT"
+license-files = ["LICENSE"]
+dependencies = [
+  "fastapi>=0.115,<1",
+  "uvicorn[standard]>=0.30,<1",
+]
+
+[project.optional-dependencies]
+dev = [
+  "build>=1.2,<2",
+  "httpx>=0.27,<1",
+  "mypy>=1.11,<2",
+  "pytest>=8.3,<9",
+  "ruff>=0.6,<1",
+]
+test = ["httpx>=0.27,<1", "pytest>=8.3,<9"]
+
+[project.scripts]
+policygraph = "policygraph.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+policygraph = ["py.typed"]
+
+# Runtime files are installed below sys.prefix/share/policygraph. The API first
+# uses checkout paths for editable development, then these wheel paths.
+[tool.setuptools.data-files]
+"share/policygraph/app" = ["app/index.html"]
+"share/policygraph/app/assets" = ["app/assets/*.css", "app/assets/*.js"]
+"share/policygraph/data/sample" = ["data/sample/graph.json"]
+
+[tool.pytest.ini_options]
+addopts = "--strict-config --strict-markers"
+testpaths = ["tests", "evals"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+packages = ["policygraph"]

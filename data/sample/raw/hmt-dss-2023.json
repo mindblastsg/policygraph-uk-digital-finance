@@ -1,0 +1,7 @@
+{
+  "title": "Digital Securities Sandbox",
+  "public_updated_at": "2023-07-11T09:00:00Z",
+  "details": {
+    "body": "<h2>Sandbox proposal</h2><p>POLICYGRAPH_CLAIM: {&quot;id&quot;:&quot;claim-dss-1&quot;,&quot;subject&quot;:&quot;HM Treasury&quot;,&quot;predicate&quot;:&quot;consulted_on&quot;,&quot;object&quot;:&quot;Digital Securities Sandbox&quot;,&quot;status&quot;:&quot;consultation&quot;,&quot;quote&quot;:&quot;Consultation on a Digital Securities Sandbox.&quot;}</p>"
+  }
+}

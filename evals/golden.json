@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.1",
+  "claims": {
+    "claim-crypto-1": {"status": "consultation", "status_as_of": "2023-02-01", "source_id": "hmt-crypto-future-regime-2023", "evidence": {"document_id": "doc-hmt-crypto-future-regime-2023", "section": "line:2", "quote": "The consultation set out proposals for a future cryptoasset regulatory regime."}},
+    "claim-dss-1": {"status": "consultation", "status_as_of": "2023-07-11", "source_id": "hmt-dss-2023", "evidence": {"document_id": "doc-hmt-dss-2023", "section": "line:2", "quote": "Consultation on a Digital Securities Sandbox."}},
+    "claim-edinburgh-1": {"status": "proposal", "status_as_of": "2022-12-09", "source_id": "hmt-future-financial-services-2022", "evidence": {"document_id": "doc-hmt-future-financial-services-2022", "section": "line:2", "quote": "The reforms proposed a financial market infrastructure sandbox."}},
+    "claim-stablecoin-1": {"status": "consultation", "status_as_of": "2021-01-07", "source_id": "hmt-stablecoins-2020", "evidence": {"document_id": "doc-hmt-stablecoins-2020", "section": "line:2", "quote": "The consultation considered the regulatory approach to stable tokens."}}
+  },
+  "relationships": {
+    "rel-claim-crypto-1": {"claim_id": "claim-crypto-1", "source_entity_id": "hm-treasury", "target_entity_id": "cryptoasset-regulatory-regime", "source_id": "hmt-crypto-future-regime-2023", "evidence": {"document_id": "doc-hmt-crypto-future-regime-2023", "section": "line:2", "quote": "The consultation set out proposals for a future cryptoasset regulatory regime."}},
+    "rel-claim-dss-1": {"claim_id": "claim-dss-1", "source_entity_id": "hm-treasury", "target_entity_id": "digital-securities-sandbox", "source_id": "hmt-dss-2023", "evidence": {"document_id": "doc-hmt-dss-2023", "section": "line:2", "quote": "Consultation on a Digital Securities Sandbox."}},
+    "rel-claim-edinburgh-1": {"claim_id": "claim-edinburgh-1", "source_entity_id": "hm-treasury", "target_entity_id": "digital-securities-sandbox", "source_id": "hmt-future-financial-services-2022", "evidence": {"document_id": "doc-hmt-future-financial-services-2022", "section": "line:2", "quote": "The reforms proposed a financial market infrastructure sandbox."}},
+    "rel-claim-stablecoin-1": {"claim_id": "claim-stablecoin-1", "source_entity_id": "hm-treasury", "target_entity_id": "stablecoin-regulation", "source_id": "hmt-stablecoins-2020", "evidence": {"document_id": "doc-hmt-stablecoins-2020", "section": "line:2", "quote": "The consultation considered the regulatory approach to stable tokens."}}
+  },
+  "thresholds": {"citation_correctness": 0.9, "claim_precision": 1.0, "entity_precision": 0.9, "provenance_completeness": 1.0, "relationship_precision": 0.9, "relationship_recall": 1.0, "status_critical_errors": 0, "unsupported_claims": 0, "unsupported_relationships": 0}
+}
