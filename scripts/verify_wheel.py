@@ -91,7 +91,6 @@ def main() -> int:
                 sys.executable,
                 "-m",
                 "build",
-                "--no-isolation",
                 "--wheel",
                 "--outdir",
                 str(example_dist),
