@@ -8,6 +8,7 @@ All notable changes are documented here. Before 1.0, breaking contract changes m
 - Add structured, privacy-conscious research feedback entry points to the explorer.
 - Add a GitHub Pages build and deployment workflow with a static graph fallback.
 - Scope the first real-data acquisition increment, corpus limits and semantic-research handoff.
+- Add a policy-official frontend roadmap with page-level outcomes, evidence gates and conditional expansion criteria.
 
 ## [0.2.0] - 2026-09-14
 

@@ -26,5 +26,10 @@ Priorities: P0 is required for the first usable POC; P1 supports validation; P2 
 | PG-20 | P1 | As a participant, I can submit structured product feedback | Public form captures task outcome, confidence, usefulness and missing coverage without requesting sensitive data |
 | PG-21 | P1 | As a data lead, I can acquire a bounded real corpus | 60–100 reviewed documents meet the initial acquisition and provenance gates |
 | PG-22 | P1 | As an evaluator, I can compare retrieval approaches | Keyword, embedding and hybrid retrieval run against the same 25-question held-back set |
+| PG-23 | P1 | As a policy official, I understand the use case from the first screen | At least 4/5 first-impression participants identify the audience, task, evidence basis and limitation without help |
+| PG-24 | P1 | As an analyst, I can follow a guided policy-history journey | A relevant milestone is found within two minutes and topic status is interpreted correctly |
+| PG-25 | P1 | As an analyst, I can share why a connection is shown | A stable evidence URL preserves the connection, passage, locator, source and historical status |
+| PG-26 | P1 | As a user, I can inspect method, coverage and evaluation limits | Displayed corpus and evaluation figures trace to committed metadata and remain labelled as synthetic or unvalidated |
+| PG-27 | P2 | As a user, I can explore an optional visual map without losing an accessible route | The map and list/table expose equivalent records, evidence and keyboard actions |
 
 Implementation ordering follows the [roadmap](roadmap.md); definitions of success are in the [evaluation plan](evaluation-plan.md).
