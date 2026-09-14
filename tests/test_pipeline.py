@@ -33,7 +33,7 @@ class RegistryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "registry.json"
             path.write_text(json.dumps(payload), encoding="utf-8")
-            with self.assertRaisesRegex(ValueError, "Unsafe source id"):
+            with self.assertRaisesRegex(ValueError, "Invalid source registry"):
                 load_registry(path)
 
 

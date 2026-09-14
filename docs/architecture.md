@@ -17,7 +17,7 @@ flowchart LR
     K -. corrected registry/rules .-> A
 ```
 
-Every claim and relationship crossing the validation gate must retain a source identifier and locator. The POC uses deterministic fixtures in automated checks; network retrieval and live AI extraction are explicit optional operations.
+Every claim and relationship crossing the validation gate must retain a source identifier and locator. The diagram shows the intended full flow. The working POC runs local fixtures through the same adapter boundary, extracts text into located lines, reads deterministic claim markers, canonicalises entities and builds the validated graph. Cache/fetch and claim-extractor interfaces are available for extensions; no live network transport, LLM extractor or human-review console ships. Lines provide the POC's chunking boundary.
 
 **Text description:** Curated source metadata flows through explicit retrieval, extraction, evidence-aware chunking, structured extraction, canonicalisation, and validation. Valid records become a versioned JSON graph consumed by a read-only API and accessible interface. Failed validation routes records to human review, which can correct the registry or transformation rules.
 
@@ -26,8 +26,9 @@ Every claim and relationship crossing the validation gate must retain a source i
 ```text
 data/registry/       Curated source metadata intended for publication
 data/sample/         Labelled derived demo graph and rights-reviewed fixtures
-pipeline/            Fetch, extract, canonicalise, build, validate
-app/                 Read-only API and static accessible interface
+src/policygraph/      Fetch, extract, canonicalise, build, validate, read-only API
+pipeline/            Operating notes and contracts
+app/                 Static accessible interface
 evals/               Golden set, evaluation runner, reports schema
 docs/                Product contract, architecture, decisions, risks
 ```

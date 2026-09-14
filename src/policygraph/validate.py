@@ -1,5 +1,6 @@
 """Graph integrity and provenance quality gates."""
 
+from .canonicalise import stable_id
 from .models import Document, EvidenceLocator, Graph
 
 
@@ -11,6 +12,7 @@ def validate_graph(graph: Graph) -> list[str]:
         if len(ids) != len(set(ids)):
             errors.append("duplicate ids in graph collection")
     source_ids = {item.id for item in graph.sources}
+    sources = {item.id: item for item in graph.sources}
     documents = {item.id: item for item in graph.documents}
     claim_ids = {item.id for item in graph.claims}
     entity_ids = {item.id for item in graph.entities}
@@ -38,6 +40,9 @@ def validate_graph(graph: Graph) -> list[str]:
             errors.append(f"claim {claim.id}: evidence document ownership mismatch")
         if claim_document and not locator_valid(claim_document, claim.evidence):
             errors.append(f"claim {claim.id}: invalid locator or evidence quote absent from section")
+        source = sources.get(claim.source_id)
+        if source and (claim.status != source.status or claim.status_as_of != source.status_as_of):
+            errors.append(f"claim {claim.id}: status does not match source document")
     for relationship in graph.relationships:
         if relationship.source_id not in source_ids or relationship.claim_id not in claim_ids:
             errors.append(f"relationship {relationship.id}: invalid provenance")
@@ -48,6 +53,13 @@ def validate_graph(graph: Graph) -> list[str]:
             relationship.source_id != supporting_claim.source_id or relationship.evidence != supporting_claim.evidence
         ):
             errors.append(f"relationship {relationship.id}: evidence does not match claim")
+        if supporting_claim and (
+            relationship.kind != supporting_claim.predicate
+            or relationship.topics != supporting_claim.topics
+            or relationship.source_entity_id != stable_id(supporting_claim.subject)
+            or relationship.target_entity_id != stable_id(supporting_claim.object)
+        ):
+            errors.append(f"relationship {relationship.id}: projection does not match claim")
         relationship_document = documents.get(relationship.evidence.document_id)
         if relationship_document is None or relationship_document.source_id != relationship.source_id:
             errors.append(f"relationship {relationship.id}: evidence document ownership mismatch")
@@ -59,4 +71,7 @@ def validate_graph(graph: Graph) -> list[str]:
             errors.append(f"event {event.id}: invalid provenance")
         elif not locator_valid(event_document, event.evidence):
             errors.append(f"event {event.id}: invalid evidence locator")
+        source = sources.get(event.source_id)
+        if source and (event.status != source.status or event.status_as_of != source.status_as_of):
+            errors.append(f"event {event.id}: status does not match source document")
     return errors

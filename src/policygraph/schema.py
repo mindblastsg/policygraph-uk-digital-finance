@@ -6,6 +6,8 @@ import json
 from importlib.resources import files
 from typing import Any
 
+from .canonicalise import stable_id
+
 SCHEMA_NAMES = frozenset({"claim", "document", "evaluation", "graph", "source-registry"})
 
 
@@ -18,9 +20,20 @@ def load_schema(name: str) -> dict[str, Any]:
     return value
 
 
+def _source_errors(sources: list[dict[str, Any]]) -> list[str]:
+    errors: list[str] = []
+    identifiers = [source["id"] for source in sources]
+    if len(identifiers) != len(set(identifiers)):
+        errors.append("$/sources: ids must be unique")
+    for index, source in enumerate(sources):
+        if source["kind"] == "govuk_content" and not source.get("content_path"):
+            errors.append(f"$/sources/{index}/content_path: GOV.UK source requires content_path")
+    return errors
+
+
 def _provenance_errors(graph: dict[str, Any]) -> list[str]:
     errors: list[str] = []
-    sources = {item["id"] for item in graph.get("sources", [])}
+    sources = {item["id"]: item for item in graph.get("sources", [])}
     documents = {item["id"]: item for item in graph.get("documents", [])}
     claims = {item["id"]: item for item in graph.get("claims", [])}
     entities = {item["id"] for item in graph.get("entities", [])}
@@ -42,12 +55,17 @@ def _provenance_errors(graph: dict[str, Any]) -> list[str]:
             elif document["source_id"] != item["source_id"]:
                 errors.append(f"$/{collection}/{index}/evidence: document belongs to another source")
             else:
-                line_number = int(evidence["section"].removeprefix("line:"))
+                number = evidence["section"].removeprefix("line:")
                 lines = document["text"].splitlines()
-                if line_number > len(lines):
+                # Compare digit count first: even a schema-valid enormous locator
+                # must return a validation error, not exceed Python's int limit.
+                if len(number) > len(str(len(lines))) or int(number) > len(lines):
                     errors.append(f"$/{collection}/{index}/evidence/section: line is outside the document")
-                elif evidence["quote"] not in lines[line_number - 1]:
+                elif not evidence["quote"].strip() or evidence["quote"] not in lines[int(number) - 1]:
                     errors.append(f"$/{collection}/{index}/evidence/quote: quote is not present on the located line")
+            if collection in {"claims", "events"} and (source := sources.get(item["source_id"])):
+                if any(item[field] != source[field] for field in ("status", "status_as_of")):
+                    errors.append(f"$/{collection}/{index}: status and status_as_of must match the source document")
     for index, relationship in enumerate(graph.get("relationships", [])):
         if relationship["source_entity_id"] not in entities or relationship["target_entity_id"] not in entities:
             errors.append(f"$/relationships/{index}: unknown entity reference")
@@ -58,18 +76,29 @@ def _provenance_errors(graph: dict[str, Any]) -> list[str]:
             errors.append(f"$/relationships/{index}/claim_id: claim belongs to another source")
         elif relationship["evidence"] != claim["evidence"]:
             errors.append(f"$/relationships/{index}/evidence: evidence must match the linked claim")
+        if claim is not None and (
+            relationship["kind"] != claim["predicate"]
+            or relationship["topics"] != claim["topics"]
+            or relationship["source_entity_id"] != stable_id(claim["subject"])
+            or relationship["target_entity_id"] != stable_id(claim["object"])
+        ):
+            errors.append(f"$/relationships/{index}: relationship must match the linked claim projection")
     return errors
 
 
 def validation_errors(instance: Any, schema_name: str) -> list[str]:
     from jsonschema import Draft202012Validator, FormatChecker
 
-    Draft202012Validator.check_schema(load_schema(schema_name))
-    validator = Draft202012Validator(load_schema(schema_name), format_checker=FormatChecker())
+    schema = load_schema(schema_name)
+    Draft202012Validator.check_schema(schema)
+    validator = Draft202012Validator(schema, format_checker=FormatChecker())
     errors = [
         f"$/{'/'.join(str(part) for part in error.absolute_path)}: {error.message}"
         for error in sorted(validator.iter_errors(instance), key=lambda item: list(item.absolute_path))
     ]
-    if not errors and schema_name == "graph" and isinstance(instance, dict):
-        errors.extend(_provenance_errors(instance))
+    if not errors and isinstance(instance, dict):
+        if schema_name == "source-registry":
+            errors.extend(_source_errors(instance["sources"]))
+        elif schema_name == "graph":
+            errors.extend(_provenance_errors(instance))
     return errors

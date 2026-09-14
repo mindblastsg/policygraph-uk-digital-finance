@@ -10,6 +10,31 @@
   border: 0;
 }
 
+.view-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1.25rem;
+  padding: .75rem 0;
+}
+
+.view-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: .5rem .25rem;
+}
+
+.card h4 {
+  margin: .35rem 0;
+  font-size: 1.15rem;
+}
+
+.coverage-note {
+  padding: 1rem;
+  background: #eef5f3;
+  border-left: 3px solid var(--teal);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }

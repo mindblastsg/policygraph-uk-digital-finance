@@ -8,7 +8,7 @@ The planned MVP uses a lightweight RICE comparison. **Reach** is the estimated s
 | Typed events and policy status | 9 | 3.0 | 0.8 | 3 | 7.2 | Must |
 | Curated source registry + reproducible build | 8 | 3.0 | 0.9 | 4 | 5.4 | Must |
 | Golden-set evaluation | 7 | 3.0 | 0.9 | 4 | 4.7 | Must |
-| Timeline and graph exploration | 9 | 2.0 | 0.8 | 4 | 3.6 | Must |
+| Event and relationship exploration | 9 | 2.0 | 0.8 | 4 | 3.6 | Must |
 | Full-text semantic search | 7 | 1.5 | 0.6 | 5 | 1.3 | Later |
 | Alerts and continuous monitoring | 5 | 2.0 | 0.5 | 7 | 0.7 | Later |
 | Accounts and collaboration | 4 | 1.0 | 0.5 | 6 | 0.3 | Later |

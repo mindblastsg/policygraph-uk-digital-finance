@@ -7,7 +7,7 @@
 | Layer | Discover | Explore | Verify | Reproduce |
 |---|---|---|---|---|
 | User action | Choose topic/entity | Inspect linked event and relationship cards | Open claim evidence | Review dataset build |
-| Visible experience | Coverage notice and search | Accessible nodes, edges, event list | Source metadata, locator, excerpt, status | Build metadata and validation report |
+| Visible experience | Coverage notice and topic choices | Linked entity, relationship and event cards | Source metadata, locator, excerpt, status | Build metadata and validation report |
 | API/service | Read topic subgraph | Query entities/events/relationships | Resolve claim and source records | Return dataset version |
 | Pipeline | Curate registry | Extract and canonicalise | Attach provenance | Validate and build deterministically |
 | Controls | Scope label | Typed schema and status taxonomy | No claim without source+locator | Offline fixtures, golden set, quality gates |

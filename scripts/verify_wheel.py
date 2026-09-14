@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import os
 import re
 import shutil
 import subprocess
@@ -52,21 +51,30 @@ def main() -> int:
             raise SystemExit("Packaged schema is invalid")
     verify_root = Path(".verify-tmp")
     verify_root.mkdir(exist_ok=True)
-    temp_root = Path(tempfile.mkdtemp(prefix="policygraph-wheel-", dir=verify_root))
+    temp_root = Path(tempfile.mkdtemp(prefix="policygraph-wheel-", dir=verify_root)).resolve()
     try:
+        subprocess.run([sys.executable, "-m", "venv", str(temp_root / "venv")], check=True)
+        python = temp_root / "venv" / ("Scripts/python.exe" if sys.platform == "win32" else "bin/python")
         subprocess.run(
-            [sys.executable, "-m", "pip", "install", "--no-deps", "--target", str(temp_root), str(wheel.resolve())],
+            [str(python), "-m", "pip", "install", "--disable-pip-version-check", str(wheel.resolve())],
             check=True,
         )
-        environment = os.environ.copy()
-        environment["PYTHONPATH"] = str(temp_root.resolve())
         subprocess.run(
             [
-                sys.executable,
+                str(python),
+                "-I",
                 "-c",
-                "import policygraph; "
+                "import policygraph, sys; from pathlib import Path; "
                 "from policygraph.adapters import discover_adapters, load_adapter; "
                 "from policygraph.schema import load_schema, validation_errors; "
+                "from policygraph.api import app, load_graph, WEB_ROOT, DEFAULT_GRAPH_PATH; "
+                "assert Path(policygraph.__file__).is_relative_to(sys.prefix); "
+                "assert WEB_ROOT.is_relative_to(sys.prefix); "
+                "assert DEFAULT_GRAPH_PATH.is_relative_to(sys.prefix); "
+                "assert (WEB_ROOT / 'index.html').is_file(); "
+                "assert (WEB_ROOT / 'assets/app.js').is_file(); "
+                "assert not validation_errors(load_graph(), 'graph'); "
+                "assert app.version == policygraph.__version__; "
                 "assert policygraph.__version__; "
                 "assert load_schema('source-registry')['$schema']; "
                 "assert validation_errors({'schema_version': '1.0', 'sources': [], 'extra': True}, "
@@ -76,7 +84,40 @@ def main() -> int:
             ],
             check=True,
             cwd=temp_root,
-            env=environment,
+        )
+        example_dist = temp_root / "example-dist"
+        subprocess.run(
+            [
+                sys.executable,
+                "-m",
+                "build",
+                "--no-isolation",
+                "--wheel",
+                "--outdir",
+                str(example_dist),
+                "examples/source-adapter",
+            ],
+            check=True,
+        )
+        example_wheel = next(example_dist.glob("*.whl"))
+        subprocess.run([str(python), "-m", "pip", "install", "--no-deps", str(example_wheel)], check=True)
+        subprocess.run(
+            [
+                str(python),
+                "-I",
+                "-c",
+                "from datetime import date; "
+                "from policygraph.adapters import load_adapter; "
+                "from policygraph.models import Source, SourceKind, PolicyStatus; "
+                "from policygraph.testing import assert_adapter_contract; "
+                "adapter = load_adapter('example_regulator')(); "
+                "source = Source('example', 'Example', 'Example', 'https://example.invalid/policy', "
+                "SourceKind.WEB_PAGE, (), PolicyStatus.PROPOSAL, date(2026, 1, 1), content_path='sample.html'); "
+                "assert_adapter_contract(adapter, source); "
+                "assert 'Fixture-only evidence.' in adapter.extract(source, adapter.fetch(source)).text",
+            ],
+            check=True,
+            cwd=temp_root,
         )
     finally:
         shutil.rmtree(temp_root, ignore_errors=True)
@@ -84,7 +125,7 @@ def main() -> int:
             verify_root.rmdir()
         except OSError:
             pass
-    print(f"Wheel archive and isolated runtime smoke tests passed: {wheel}")
+    print(f"Wheel archive, isolated API/runtime and installed adapter contract checks passed: {wheel}")
     return 0
 
 

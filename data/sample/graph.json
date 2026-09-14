@@ -12,8 +12,10 @@
       "source_id": "hmt-crypto-future-regime-2023",
       "status": "consultation",
       "status_as_of": "2023-02-01",
-      "topics": ["cryptoasset regulation"],
-      "subject": "HM Treasury"
+      "subject": "HM Treasury",
+      "topics": [
+        "cryptoasset regulation"
+      ]
     },
     {
       "evidence": {
@@ -27,8 +29,10 @@
       "source_id": "hmt-dss-2023",
       "status": "consultation",
       "status_as_of": "2023-07-11",
-      "topics": ["Digital Securities Sandbox"],
-      "subject": "HM Treasury"
+      "subject": "HM Treasury",
+      "topics": [
+        "Digital Securities Sandbox"
+      ]
     },
     {
       "evidence": {
@@ -42,8 +46,10 @@
       "source_id": "hmt-future-financial-services-2022",
       "status": "proposal",
       "status_as_of": "2022-12-09",
-      "topics": ["Digital Securities Sandbox"],
-      "subject": "HMT"
+      "subject": "HMT",
+      "topics": [
+        "Digital Securities Sandbox"
+      ]
     },
     {
       "evidence": {
@@ -57,8 +63,10 @@
       "source_id": "hmt-stablecoins-2020",
       "status": "consultation",
       "status_as_of": "2021-01-07",
-      "topics": ["stablecoins"],
-      "subject": "HM Treasury"
+      "subject": "HM Treasury",
+      "topics": [
+        "stablecoins"
+      ]
     }
   ],
   "documents": [
@@ -137,8 +145,10 @@
       "source_id": "hmt-crypto-future-regime-2023",
       "status": "consultation",
       "status_as_of": "2023-02-01",
-      "topics": ["cryptoasset regulation"],
-      "title": "HM Treasury consulted_on Cryptoasset regulatory regime"
+      "title": "HM Treasury consulted_on Cryptoasset regulatory regime",
+      "topics": [
+        "cryptoasset regulation"
+      ]
     },
     {
       "date": null,
@@ -151,8 +161,10 @@
       "source_id": "hmt-dss-2023",
       "status": "consultation",
       "status_as_of": "2023-07-11",
-      "topics": ["Digital Securities Sandbox"],
-      "title": "HM Treasury consulted_on Digital Securities Sandbox"
+      "title": "HM Treasury consulted_on Digital Securities Sandbox",
+      "topics": [
+        "Digital Securities Sandbox"
+      ]
     },
     {
       "date": null,
@@ -165,8 +177,10 @@
       "source_id": "hmt-future-financial-services-2022",
       "status": "proposal",
       "status_as_of": "2022-12-09",
-      "topics": ["Digital Securities Sandbox"],
-      "title": "HM Treasury proposed Digital Securities Sandbox"
+      "title": "HM Treasury proposed Digital Securities Sandbox",
+      "topics": [
+        "Digital Securities Sandbox"
+      ]
     },
     {
       "date": null,
@@ -179,12 +193,14 @@
       "source_id": "hmt-stablecoins-2020",
       "status": "consultation",
       "status_as_of": "2021-01-07",
-      "topics": ["stablecoins"],
-      "title": "HM Treasury consulted_on Stablecoin regulation"
+      "title": "HM Treasury consulted_on Stablecoin regulation",
+      "topics": [
+        "stablecoins"
+      ]
     }
   ],
-  "fixture_set_sha256": "041691a938a54a77433f076f4fcb15bfe219e350332024758a776ad10bae9a4b",
-  "generator_version": "policygraph-0.1.0",
+  "fixture_set_sha256": "906362cea16a9135b643d09a65f46bfaa7bdc19a94d3b3f03dd49d30c8beffd8",
+  "generator_version": "policygraph-0.2.0",
   "relationships": [
     {
       "claim_id": "claim-crypto-1",
@@ -197,8 +213,10 @@
       "kind": "consulted_on",
       "source_entity_id": "hm-treasury",
       "source_id": "hmt-crypto-future-regime-2023",
-      "target_entity_id": "cryptoasset-regulatory-regime"
-      ,"topics": ["cryptoasset regulation"]
+      "target_entity_id": "cryptoasset-regulatory-regime",
+      "topics": [
+        "cryptoasset regulation"
+      ]
     },
     {
       "claim_id": "claim-dss-1",
@@ -211,8 +229,10 @@
       "kind": "consulted_on",
       "source_entity_id": "hm-treasury",
       "source_id": "hmt-dss-2023",
-      "target_entity_id": "digital-securities-sandbox"
-      ,"topics": ["Digital Securities Sandbox"]
+      "target_entity_id": "digital-securities-sandbox",
+      "topics": [
+        "Digital Securities Sandbox"
+      ]
     },
     {
       "claim_id": "claim-edinburgh-1",
@@ -225,8 +245,10 @@
       "kind": "proposed",
       "source_entity_id": "hm-treasury",
       "source_id": "hmt-future-financial-services-2022",
-      "target_entity_id": "digital-securities-sandbox"
-      ,"topics": ["Digital Securities Sandbox"]
+      "target_entity_id": "digital-securities-sandbox",
+      "topics": [
+        "Digital Securities Sandbox"
+      ]
     },
     {
       "claim_id": "claim-stablecoin-1",
@@ -239,8 +261,10 @@
       "kind": "consulted_on",
       "source_entity_id": "hm-treasury",
       "source_id": "hmt-stablecoins-2020",
-      "target_entity_id": "stablecoin-regulation"
-      ,"topics": ["stablecoins"]
+      "target_entity_id": "stablecoin-regulation",
+      "topics": [
+        "stablecoins"
+      ]
     }
   ],
   "schema_version": "1.0",

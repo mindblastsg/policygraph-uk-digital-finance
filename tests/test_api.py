@@ -9,6 +9,7 @@ from unittest.mock import patch
 
 from fastapi.testclient import TestClient
 
+from policygraph import __version__
 from policygraph.api import app
 
 ROOT = Path(__file__).parents[1]
@@ -17,6 +18,9 @@ CLIENT = TestClient(app)
 
 
 class ApiTests(unittest.TestCase):
+    def test_openapi_reports_installed_package_version(self) -> None:
+        self.assertEqual(__version__, CLIENT.get("/openapi.json").json()["info"]["version"])
+
     def test_health_and_graph(self) -> None:
         self.assertEqual({"status": "ok", "graph_loaded": True}, CLIENT.get("/api/health").json())
         response = CLIENT.get("/api/graph")
@@ -43,7 +47,15 @@ class ApiTests(unittest.TestCase):
 
     def test_topics_and_relationship_evidence(self) -> None:
         topic_data = CLIENT.get("/api/topics").json()
-        self.assertIn("Digital Securities Sandbox", {item["name"] for item in topic_data})
+        self.assertEqual(
+            {"DLT", "tokenisation", "Digital Securities Sandbox", "stablecoins", "cryptoasset regulation"},
+            {item["name"] for item in topic_data},
+        )
+        for name in ("DLT", "tokenisation"):
+            record = next(item for item in topic_data if item["name"] == name)
+            self.assertTrue(record["source_ids"])
+            self.assertEqual([], record["entity_ids"])
+            self.assertEqual([], record["event_ids"])
         detail = CLIENT.get("/api/topics/Digital%20Securities%20Sandbox")
         self.assertEqual(200, detail.status_code)
         self.assertTrue(detail.json()["source_ids"])
@@ -87,6 +99,53 @@ class ApiTests(unittest.TestCase):
                 response = CLIENT.get("/api/graph")
                 self.assertEqual(503, response.status_code)
                 self.assertEqual({"detail": "PolicyGraph data is unavailable or invalid"}, response.json())
+
+    def test_malformed_evidence_and_field_types_fail_closed(self) -> None:
+        mutations = (
+            (
+                "claims",
+                "evidence",
+                {"document_id": GRAPH["claims"][0]["evidence"]["document_id"], "section": "line:abc", "quote": "test"},
+            ),
+            ("claims", "evidence", {"document_id": [], "section": "line:1", "quote": "test"}),
+            ("claims", "source_id", []),
+            ("sources", "status", {}),
+            ("documents", "text", []),
+            ("entities", "id", {}),
+            ("relationships", "claim_id", []),
+            ("sources", "url", "https://[malformed"),
+        )
+        endpoints = (
+            "/api/graph",
+            "/api/topics",
+            "/api/entities/hm-treasury",
+            f"/api/events/{GRAPH['events'][0]['id']}",
+            f"/api/relationships/{GRAPH['relationships'][0]['id']}",
+            f"/api/sources/{GRAPH['sources'][0]['id']}",
+        )
+        for collection, field, value in mutations:
+            with self.subTest(collection=collection, field=field, value=value):
+                payload = json.loads(json.dumps(GRAPH))
+                payload[collection][0][field] = value
+                with tempfile.TemporaryDirectory() as directory:
+                    graph_path = Path(directory) / "graph.json"
+                    graph_path.write_text(json.dumps(payload), encoding="utf-8")
+                    with patch.dict(os.environ, {"POLICYGRAPH_DATA_PATH": str(graph_path)}):
+                        self.assertEqual(
+                            {"status": "degraded", "graph_loaded": False}, CLIENT.get("/api/health").json()
+                        )
+                        for endpoint in endpoints:
+                            response = CLIENT.get(endpoint)
+                            self.assertEqual(503, response.status_code, endpoint)
+                            self.assertEqual({"detail": "PolicyGraph data is unavailable or invalid"}, response.json())
+
+    def test_invalid_utf8_graph_fails_with_stable_503(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            graph_path = Path(directory) / "graph.json"
+            graph_path.write_bytes(b"\xff\xfe")
+            with patch.dict(os.environ, {"POLICYGRAPH_DATA_PATH": str(graph_path)}):
+                self.assertEqual(503, CLIENT.get("/api/graph").status_code)
+                self.assertEqual({"status": "degraded", "graph_loaded": False}, CLIENT.get("/api/health").json())
 
     def test_strict_validation_rejects_duplicate_ids_and_claim_mismatch(self) -> None:
         duplicate = json.loads(json.dumps(GRAPH))

@@ -58,6 +58,6 @@ The POC must run without secrets or live model access in CI; preserve source rig
 
 ## Product status
 
-Version 0.1.0 is a functional alpha: the deterministic fixture pipeline, graph, API, UI, and bounded golden evaluation work offline. It is AI-ready through a replaceable extraction interface, but does not ship a working AI/LLM extractor. “Validated MVP” remains reserved for meeting the real-corpus and moderated-user gates in the [evaluation plan](evaluation-plan.md).
+Version 0.2.0 is a functional POC: the deterministic fixture pipeline, reusable ingestion SDK, graph, API, UI, and bounded golden evaluation work offline. It is AI-ready through a replaceable extraction interface, but does not ship a working AI/LLM extractor. “Validated MVP” remains reserved for meeting the real-corpus and moderated-user gates in the [evaluation plan](evaluation-plan.md).
 
 Status values describe what a historical document represented on `status_as_of`; they are not current-law determinations. Users must inspect current primary sources before relying on regulatory status.

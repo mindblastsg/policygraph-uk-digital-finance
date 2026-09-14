@@ -1,6 +1,6 @@
 # PolicyGraph
 
-> **Reusable ingestion SDK (v0.2, unreleased):** versioned schemas, offline-first source adapters,
+> **Reusable ingestion SDK (v0.2.0):** versioned schemas, offline-first source adapters,
 > metadata-only plugin discovery, contract tests and CLI validation are now included. Start with
 > [`examples/source-adapter`](examples/source-adapter) and the [adapter guide](docs/contributors/building-an-adapter.md).
 
@@ -12,7 +12,7 @@ PolicyGraph is an open-source AI product-management proof of concept for explori
 
 The product idea is simple: policy professionals should be able to move from a topic or organisation to underlying events, relationships, claims, and evidence. Every status is the source document's status on an explicit `status_as_of` date, not a claim about current law in 2026.
 
-> **Current status — v0.1.0 functional alpha.** The deterministic fixture pipeline, read-only API, responsive explorer, bounded golden evaluation, local wheel-content check, and CI workflow are implemented. PolicyGraph is AI-ready through a replaceable extraction boundary, but no working AI/LLM extractor ships. Synthetic-sample results do **not** establish production accuracy or user value; real-corpus and moderated-usability validation remain outstanding.
+> **Current status — v0.2.0 functional POC.** The deterministic fixture pipeline, reusable adapter SDK, read-only API, responsive explorer, bounded golden evaluation, installed-package checks, and CI workflow are implemented. PolicyGraph is AI-ready through a replaceable extraction boundary, but no working AI/LLM extractor ships. Synthetic-sample results do **not** establish production accuracy or user value; real-corpus and moderated-usability validation remain outstanding.
 
 ![Concept visual of the PolicyGraph explorer showing topic navigation, relationships, historical document status and evidence](docs/assets/screenshots/01-policygraph-explorer-concept.png)
 
@@ -91,7 +91,18 @@ uvicorn policygraph.api:app --host 127.0.0.1 --port 8000
 
 Open <http://127.0.0.1:8000>. The same process serves the interface and `/api/*`; interactive API documentation is at `/docs`. Run the core offline gates with `python -m pytest tests evals` and `python -m evals.evaluate`. The full release checklist is in [CONTRIBUTING.md](CONTRIBUTING.md).
 
-Editable installs use the checkout's `app/` and `data/sample/` files. A wheel built locally has been verified to contain those runtime assets. CI performs the clean isolated build and archive inspection; its result is authoritative once the workflow runs.
+All five topics are available. DLT and tokenisation currently have registered sources but no extracted claims in the four-document synthetic sample; the explorer labels this coverage gap explicitly.
+
+Rebuild and validate the data from the repository root:
+
+```bash
+policygraph build-sample
+policygraph validate-registry data/registry/sources.json
+policygraph validate-graph data/sample/graph.json
+policygraph adapters list
+```
+
+Editable installs use the checkout's `app/` and `data/sample/` files. Distribution verification installs the built wheel and its declared dependencies in a fresh environment, then loads the installed API, graph, assets, schemas and plugin registration from outside the checkout. Dependency installation needs network access; the sample build, tests and evaluations do not. See the [completion evidence](docs/completion-evidence.md) for the release audit.
 
 ## Contributing and governance
 

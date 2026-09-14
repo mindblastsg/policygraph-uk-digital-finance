@@ -1,10 +1,15 @@
 # Changelog
 
-## 0.2.0 - Unreleased
+All notable changes are documented here. Before 1.0, breaking contract changes may increment the minor version.
+
+## [0.2.0] - 2026-09-14
 
 - Add versioned JSON Schemas, adapter contracts, safe plugin discovery, validation CLI commands, test helpers and a starter kit.
-
-All notable changes are documented here following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) conventions. This project uses semantic versioning.
+- Expose all five registry topics and distinguish registered-source coverage from extracted claims.
+- Validate schema, evidence, status and relationship projections consistently across builds, CLI and API.
+- Verify the installed distribution in a fresh environment and package the example adapter's fixture.
+- Improve readable event labels, result counts and keyboard navigation links.
+- Publish nine labelled AI concept visuals, including the welcome image and long-term epic mindmap.
 
 ## [0.1.0] - 2026-09-14
 

@@ -4,10 +4,14 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "policygraph-example-regulator"
 version = "0.1.0"
+requires-python = ">=3.12"
 dependencies = ["policygraph>=0.2,<0.3"]
 [project.optional-dependencies]
 test = ["pytest>=8.3,<9"]
 [project.entry-points."policygraph.source_adapters"]
 example_regulator = "example_adapter:ExampleRegulatorAdapter"
-[tool.setuptools]
-py-modules = ["example_adapter"]
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["example_adapter*"]
+[tool.setuptools.package-data]
+example_adapter = ["fixtures/*.html"]

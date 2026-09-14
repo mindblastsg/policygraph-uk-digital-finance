@@ -2,9 +2,12 @@ import json
 from copy import deepcopy
 from datetime import date
 from pathlib import Path
+from unittest.mock import Mock, patch
+
+import pytest
 
 from policygraph import GENERATOR_VERSION, __version__
-from policygraph.adapters import LocalFixtureAdapter, discover_adapters
+from policygraph.adapters import LocalFixtureAdapter, discover_adapters, load_adapter
 from policygraph.cli import main
 from policygraph.models import PolicyStatus, Source, SourceKind
 from policygraph.schema import validation_errors
@@ -12,7 +15,43 @@ from policygraph.testing import assert_adapter_contract
 
 
 def test_discovery_does_not_load_plugins() -> None:
-    assert all(item.group == "policygraph.source_adapters" for item in discover_adapters())
+    entry = Mock()
+    with patch("policygraph.adapters.entry_points", return_value=(entry,)) as metadata:
+        assert discover_adapters() == (entry,)
+        metadata.assert_called_once_with(group="policygraph.source_adapters")
+        entry.load.assert_not_called()
+
+
+def test_loading_class_does_not_construct_configured_plugin() -> None:
+    class ConfiguredAdapter(LocalFixtureAdapter):
+        name = "configured"
+
+        def __init__(self, credential: str) -> None:
+            raise AssertionError("Only the consuming application may construct the plugin")
+
+    entry = Mock()
+    entry.name = "configured"
+    entry.value = "example:ConfiguredAdapter"
+    entry.load.return_value = ConfiguredAdapter
+    with patch("policygraph.adapters.discover_adapters", return_value=(entry,)):
+        assert load_adapter("configured") is ConfiguredAdapter
+        entry.load.assert_called_once_with()
+    with patch("policygraph.adapters.discover_adapters", return_value=(entry, entry)):
+        with pytest.raises(LookupError, match="ambiguous"):
+            load_adapter("configured")
+    with patch("policygraph.adapters.discover_adapters", return_value=()):
+        with pytest.raises(LookupError, match="not installed"):
+            load_adapter("configured")
+
+
+@pytest.mark.parametrize("value", [object(), type("Broken", (), {"name": "broken"})])
+def test_loader_rejects_malformed_entry_points(value: object) -> None:
+    entry = Mock()
+    entry.name = "broken"
+    entry.load.return_value = value
+    with patch("policygraph.adapters.discover_adapters", return_value=(entry,)):
+        with pytest.raises(TypeError):
+            load_adapter("broken")
 
 
 def test_runtime_version_is_aligned() -> None:
@@ -69,3 +108,21 @@ def test_graph_rejects_fabricated_quote_and_out_of_range_line() -> None:
     out_of_range = deepcopy(graph)
     out_of_range["events"][0]["evidence"]["section"] = "line:999999"
     assert any("outside the document" in error for error in validation_errors(out_of_range, "graph"))
+
+
+def test_graph_rejects_huge_locator_and_changed_relationship_meaning() -> None:
+    graph = json.loads(Path("data/sample/graph.json").read_text(encoding="utf-8"))
+    huge = deepcopy(graph)
+    huge["claims"][0]["evidence"]["section"] = "line:" + "9" * 5000
+    assert any("outside the document" in error for error in validation_errors(huge, "graph"))
+    altered = deepcopy(graph)
+    altered["relationships"][0]["kind"] = "proposed"
+    assert validation_errors(altered, "graph")
+
+
+def test_committed_graph_matches_rebuild(tmp_path: Path) -> None:
+    from policygraph.pipeline import build_sample
+
+    output = tmp_path / "graph.json"
+    build_sample(Path("data/registry/sources.json"), Path("data/sample/raw"), output)
+    assert output.read_bytes() == Path("data/sample/graph.json").read_bytes()

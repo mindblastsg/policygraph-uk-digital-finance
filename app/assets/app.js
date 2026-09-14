@@ -5,6 +5,7 @@ const summary = document.querySelector('#summary');
 let graph;
 
 const clean = value => String(value ?? '').replaceAll('_', ' ');
+const countLabel = (count, label) => `${count} ${label}${count === 1 ? '' : 's'}`;
 const escapeHtml = value => String(value ?? '').replace(/[&<>'"]/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]));
 const record = (collection, id) => graph[collection].find(item => item.id === id);
 const safeSourceUrl = value => {
@@ -30,8 +31,9 @@ function renderTopic(topic, button) {
   const relationships = graph.relationships.filter(item => item.topics.includes(topic.name));
   const events = topic.event_ids.map(id => record('events', id)).filter(Boolean);
   const entities = topic.entity_ids.map(id => record('entities', id)).filter(Boolean);
+  const hasClaims = graph.claims.some(item => item.topics.includes(topic.name));
   title.textContent = topic.name;
-  summary.textContent = `${sources.length} sources · ${events.length} events · ${relationships.length} relationships`;
+  summary.textContent = [countLabel(sources.length, 'source'), countLabel(events.length, 'event'), countLabel(relationships.length, 'relationship')].join(' · ');
   const url = new URL(window.location.href); url.searchParams.set('topic', topic.name); history.replaceState({}, '', url);
   const relationshipCards = relationships.map(edge => {
     const from = record('entities', edge.source_entity_id);
@@ -45,10 +47,11 @@ function renderTopic(topic, button) {
   }).join('');
   const eventCards = events.map(item => {
     const source = record('sources', item.source_id);
-    return `<article class="card"><span class="status">Document status as of ${escapeHtml(item.status_as_of)}: ${escapeHtml(clean(item.status))}</span><h4>${escapeHtml(item.title)}</h4><p class="meta">${escapeHtml(item.date || 'Date not asserted in sample')}</p><blockquote class="evidence">${evidenceLabel(item.evidence)}<br>“${escapeHtml(item.evidence.quote)}”<br><small>Evidence locator: ${escapeHtml(item.evidence.section)}</small></blockquote>${sourceLink(source, 'Inspect event source')}</article>`;
+    return `<article class="card"><span class="status">Document status as of ${escapeHtml(item.status_as_of)}: ${escapeHtml(clean(item.status))}</span><h4>${escapeHtml(clean(item.title))}</h4><p class="meta">${escapeHtml(item.date || 'Date not asserted in sample')}</p><blockquote class="evidence">${evidenceLabel(item.evidence)}<br>“${escapeHtml(item.evidence.quote)}”<br><small>Evidence locator: ${escapeHtml(item.evidence.section)}</small></blockquote>${sourceLink(source, 'Inspect event source')}</article>`;
   }).join('');
   const sourceCards = sources.map(item => `<article class="card"><span class="status">Document status as of ${escapeHtml(item.status_as_of)}: ${escapeHtml(clean(item.status))}</span><h4>${escapeHtml(item.title)}</h4><p class="meta">${escapeHtml(item.publisher)} · ${escapeHtml(item.published_on || 'Publication date unavailable')}</p>${sourceLink(item, 'Open primary source')}</article>`).join('');
-  content.innerHTML = `<nav class="view-links" aria-label="Topic result sections"><a href="#entities-view">Entities</a><a href="#events-view">Events</a><a href="#relationships-view">Relationships and evidence</a><a href="#sources-view">Sources</a></nav>${section('entities-view', 'Entities', entityCards, 'No entities are represented for this topic in the bounded sample.')}${section('events-view', 'Events', eventCards, 'No events are represented for this topic in the bounded sample.')}${section('relationships-view', 'Relationships and evidence', relationshipCards, 'No relationships are represented for this topic in the bounded sample.')}${section('sources-view', 'Primary sources', sourceCards, 'No sources are represented for this topic in the bounded sample.')}`;
+  const coverageNote = sources.length && !hasClaims ? '<p class="coverage-note">Primary sources are registered for this topic, but the synthetic sample has no extracted claims yet. Inspect the <a href="#sources-view">source links below</a> to explore this gap in the demo’s coverage.</p>' : '';
+  content.innerHTML = `<nav class="view-links" aria-label="Topic result sections"><a href="#entities-view">Entities</a><a href="#events-view">Events</a><a href="#relationships-view">Relationships and evidence</a><a href="#sources-view">Sources</a></nav>${coverageNote}${section('entities-view', 'Entities', entityCards, 'No entities are represented for this topic in the bounded sample.')}${section('events-view', 'Events', eventCards, 'No events are represented for this topic in the bounded sample.')}${section('relationships-view', 'Relationships and evidence', relationshipCards, 'No relationships are represented for this topic in the bounded sample.')}${section('sources-view', 'Primary sources', sourceCards, 'No sources are represented for this topic in the bounded sample.')}`;
   document.querySelector('#results').focus();
 }
 

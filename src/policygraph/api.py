@@ -14,6 +14,9 @@ from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
+from policygraph import __version__
+from policygraph.schema import validation_errors
+
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 INSTALLED_ROOT = Path(sysconfig.get_path("data")) / "share" / "policygraph"
 
@@ -50,7 +53,7 @@ def _graph_path() -> Path:
 def load_graph() -> dict[str, Any]:
     try:
         payload = json.loads(_graph_path().read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError) as exc:
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
         raise RuntimeError("PolicyGraph sample data is unavailable") from exc
     if not isinstance(payload, dict):
         raise RuntimeError("PolicyGraph sample data has an invalid root")
@@ -62,7 +65,9 @@ def load_graph() -> dict[str, Any]:
 
 def validate_graph_payload(payload: dict[str, Any]) -> list[str]:
     """Validate the read model before it crosses the API trust boundary."""
-    errors: list[str] = []
+    errors = validation_errors(payload, "graph")
+    if errors:
+        return errors
     collections = ("sources", "documents", "claims", "entities", "events", "relationships")
     if payload.get("schema_version") != "1.0":
         errors.append("unsupported schema_version")
@@ -96,7 +101,10 @@ def validate_graph_payload(payload: dict[str, Any]) -> list[str]:
 
     for source in payload["sources"]:
         url = source.get("url", "")
-        parsed = urlsplit(url) if isinstance(url, str) else None
+        try:
+            parsed = urlsplit(url) if isinstance(url, str) else None
+        except ValueError:
+            parsed = None
         hostname = parsed.hostname.casefold() if parsed and parsed.hostname else ""
         trusted = any(hostname == host or hostname.endswith(f".{host}") for host in SOURCE_HOSTS)
         if not parsed or parsed.scheme != "https" or not trusted or parsed.username or parsed.password:
@@ -146,7 +154,7 @@ def validate_graph_payload(payload: dict[str, Any]) -> list[str]:
                         else 0
                     )
                     line = document.get("text", "").splitlines()[number - 1] if number > 0 else ""
-                except IndexError:
+                except (IndexError, ValueError):
                     line = ""
                 if not isinstance(evidence["quote"], str) or evidence["quote"] not in line:
                     errors.append(f"{collection} {item['id']} evidence does not match its locator")
@@ -215,6 +223,10 @@ def _topics(graph: dict[str, Any]) -> list[dict[str, Any]]:
     relationships = graph.get("relationships", [])
     events = graph.get("events", [])
     sources = {item["id"]: item for item in graph.get("sources", [])}
+    for source in sources.values():
+        for name in source.get("topics", []):
+            entry = topics.setdefault(name, {"name": name, "source_ids": [], "entity_ids": [], "event_ids": []})
+            entry["source_ids"].append(source["id"])
     for claim in graph.get("claims", []):
         for name in claim.get("topics", []):
             entry = topics.setdefault(name, {"name": name, "source_ids": [], "entity_ids": [], "event_ids": []})
@@ -238,7 +250,7 @@ def _topics(graph: dict[str, Any]) -> list[dict[str, Any]]:
 app = FastAPI(
     title="PolicyGraph API",
     description="Read-only access to a bounded, synthetic UK digital-finance policy graph sample.",
-    version="0.1.0",
+    version=__version__,
 )
 app.mount("/assets", StaticFiles(directory=WEB_ROOT / "assets"), name="assets")
 

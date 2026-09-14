@@ -3,21 +3,19 @@
 from __future__ import annotations
 
 import json
-import re
 from datetime import date
 from pathlib import Path
 
 from .models import PolicyStatus, Source, SourceKind
-
-SAFE_ID = re.compile(r"^[a-z0-9][a-z0-9-]{0,99}$")
+from .schema import validation_errors
 
 
 def load_registry(path: Path) -> list[Source]:
     payload = json.loads(path.read_text(encoding="utf-8"))
-    if payload.get("schema_version") != "1.0":
-        raise ValueError("Unsupported source registry schema_version")
+    errors = validation_errors(payload, "source-registry")
+    if errors:
+        raise ValueError("Invalid source registry: " + "; ".join(errors))
     sources: list[Source] = []
-    seen: set[str] = set()
     for item in payload.get("sources", []):
         source = Source(
             id=item["id"],
@@ -31,12 +29,5 @@ def load_registry(path: Path) -> list[Source]:
             published_on=date.fromisoformat(item["published_on"]) if item.get("published_on") else None,
             content_path=item.get("content_path"),
         )
-        if not SAFE_ID.fullmatch(source.id):
-            raise ValueError(f"Unsafe source id: {source.id}")
-        if source.id in seen:
-            raise ValueError(f"Duplicate source id: {source.id}")
-        if source.kind == SourceKind.GOVUK_CONTENT and not source.content_path:
-            raise ValueError(f"GOV.UK source requires content_path: {source.id}")
-        seen.add(source.id)
         sources.append(source)
     return sources

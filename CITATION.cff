@@ -2,6 +2,8 @@ cff-version: 1.2.0
 message: "If you use PolicyGraph, cite this software and the original policy sources for substantive claims."
 title: "PolicyGraph: UK Digital Finance Policy Explorer"
 type: software
+version: 0.2.0
+date-released: 2026-09-14
 authors:
   - name: "mindblastsg"
 repository-code: "https://github.com/mindblastsg/policygraph-uk-digital-finance"

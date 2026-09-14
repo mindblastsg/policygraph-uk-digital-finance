@@ -1,4 +1,4 @@
-# Phase 1 retrospective
+# Delivery retrospective
 
 ## What was established
 
@@ -32,6 +32,16 @@ The release-candidate engineering layer turns trust claims into executable gates
 
 This phase also exposed and corrected an API-boundary validation mismatch: relationships intentionally derive status from their supporting claim and do not carry a duplicate status field. The validator now checks relationship provenance and claim alignment without requiring that nonexistent field.
 
-## Next action
+## Version 0.2.0: contribution and completion review
+
+The ingestion boundary is now reusable: a versioned adapter protocol, plugin registration, public JSON Schemas, a fixture-backed starter package and contributor guides make the next integration concrete. Discovery reads metadata; explicit loading imports a class; the consuming application controls construction and configuration. This keeps ownership and failure handling visible to contributors.
+
+The completion review found that an archive-only package check could miss a broken installed experience. Distribution verification now installs into a fresh environment and loads the API, graph, schemas and adapter from that installation. The starter's fixture is packaged too. A committed-graph regression checks the exact output of a rebuild, with consistent line endings across platforms.
+
+The browser review also exposed missing topic choices and cramped section links. All five scoped topics now appear. DLT and tokenisation have source coverage without extracted claims; the UI explains that distinction instead of silently hiding them. Event labels use readable words and counts use singular/plural forms.
+
+These are engineering and contribution outcomes. No analyst interviews, moderated sessions or real-corpus extraction results are claimed.
+
+## Next product experiment
 
 Run the planned moderated sessions and evaluate a held-back real-document corpus. The bounded synthetic golden result is an engineering regression result, not evidence that the user or production-quality hypotheses are met.

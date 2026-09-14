@@ -4,10 +4,11 @@ from __future__ import annotations
 
 import hashlib
 import json
+from dataclasses import replace
 from pathlib import Path
 
-from .extract import DeterministicDemoClaimExtractor, GovUKContentExtractor
-from .fetch import FetchedContent
+from .adapters import LocalFixtureAdapter
+from .extract import DeterministicDemoClaimExtractor
 from .graph import build_graph
 from .models import Claim, Document
 from .registry import load_registry
@@ -18,13 +19,12 @@ def build_sample(registry_path: Path, fixtures_dir: Path, output_path: Path) -> 
     sources = load_registry(registry_path)
     documents: list[Document] = []
     claims: list[Claim] = []
-    extractor, claim_extractor = GovUKContentExtractor(), DeterministicDemoClaimExtractor()
+    adapter, claim_extractor = LocalFixtureAdapter(fixtures_dir), DeterministicDemoClaimExtractor()
     for source in sources:
-        fixture_path = fixtures_dir / f"{source.id}.json"
-        content = FetchedContent(
-            fixture_path.read_bytes(), "application/json; charset=utf-8", f"fixture://{fixture_path.name}"
-        )
-        document = extractor.extract(source, content)
+        # The public registry retains the real Content API path; only the local
+        # fetch request substitutes the synthetic fixture's relative filename.
+        content = adapter.fetch(replace(source, content_path=f"{source.id}.json"))
+        document = adapter.extract(source, content)
         documents.append(document)
         claims.extend(claim_extractor.extract(source, document))
     graph = build_graph(sources, documents, claims)
@@ -44,4 +44,4 @@ def build_sample(registry_path: Path, fixtures_dir: Path, output_path: Path) -> 
     if errors:
         raise ValueError("Invalid graph: " + "; ".join(errors))
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    output_path.write_text(json.dumps(graph.to_dict(), indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    output_path.write_text(json.dumps(graph.to_dict(), indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
