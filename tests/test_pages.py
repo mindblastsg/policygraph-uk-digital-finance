@@ -21,6 +21,7 @@ class PagesBuildTests(unittest.TestCase):
 
             self.assertIn('href="assets/styles.css"', index)
             self.assertIn('src="assets/app.js"', index)
+            self.assertIn('class="brand" href="./"', index)
             self.assertIn('name="policygraph-data-mode" content="static"', index)
             self.assertIn("data/graph.json", script)
             self.assertIn("topicsFromGraph", script)
