@@ -1,0 +1,60 @@
+name: Alpha research feedback
+description: Share what you learned while trying the public PolicyGraph alpha.
+title: "[Research feedback]: "
+labels: [research]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for testing PolicyGraph. Do not include personal, confidential, privileged, or legally sensitive information. This public form is for product-learning observations only.
+  - type: dropdown
+    id: perspective
+    attributes:
+      label: Perspective
+      description: Which perspective best describes this test?
+      options:
+        - Policy or regulatory analysis
+        - Product or compliance
+        - Academic or independent research
+        - General exploration
+    validations:
+      required: true
+  - type: textarea
+    id: task
+    attributes:
+      label: What were you trying to understand?
+      description: Describe the task without sharing sensitive information.
+    validations:
+      required: true
+  - type: dropdown
+    id: outcome
+    attributes:
+      label: Did you find an evidence-backed answer?
+      options:
+        - Yes
+        - Partly
+        - No
+    validations:
+      required: true
+  - type: dropdown
+    id: confidence
+    attributes:
+      label: How confident were you in the evidence trail?
+      options:
+        - Very confident
+        - Somewhat confident
+        - Not confident
+    validations:
+      required: true
+  - type: textarea
+    id: useful
+    attributes:
+      label: What was useful?
+    validations:
+      required: true
+  - type: textarea
+    id: missing
+    attributes:
+      label: What was confusing or missing?
+    validations:
+      required: true

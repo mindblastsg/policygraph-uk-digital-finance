@@ -189,6 +189,8 @@ class UiTests(unittest.TestCase):
         self.assertIn('href="#explorer"', response.text)
         self.assertIn("Know the limits", response.text)
         self.assertIn("No result means", response.text)
+        self.assertIn("Share feedback", response.text)
+        self.assertIn("research_feedback.yml", response.text)
         self.assertEqual(200, CLIENT.get("/assets/app.js").status_code)
 
     def test_ui_has_keyboard_controls_and_empty_error_states(self) -> None:

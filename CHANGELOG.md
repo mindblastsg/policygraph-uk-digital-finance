@@ -2,6 +2,11 @@
 
 All notable changes are documented here. Before 1.0, breaking contract changes may increment the minor version.
 
+## [Unreleased]
+
+- Add a reproducible Render Blueprint, pinned Python runtime, health check and public-alpha deployment guide.
+- Add structured, privacy-conscious research feedback entry points to the explorer.
+
 ## [0.2.0] - 2026-09-14
 
 - Add versioned JSON Schemas, adapter contracts, safe plugin discovery, validation CLI commands, test helpers and a starter kit.

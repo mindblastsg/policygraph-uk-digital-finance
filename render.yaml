@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: policygraph-uk-digital-finance
+    runtime: python
+    region: frankfurt
+    plan: free
+    buildCommand: python -m pip install --disable-pip-version-check .
+    startCommand: uvicorn policygraph.api:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    autoDeployTrigger: checksPass

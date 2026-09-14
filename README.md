@@ -1,5 +1,7 @@
 # PolicyGraph
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https%3A%2F%2Fgithub.com%2Fmindblastsg%2Fpolicygraph-uk-digital-finance)
+
 > **Reusable ingestion SDK (v0.2.0):** versioned schemas, offline-first source adapters,
 > metadata-only plugin discovery, contract tests and CLI validation are now included. Start with
 > [`examples/source-adapter`](examples/source-adapter) and the [adapter guide](docs/contributors/building-an-adapter.md).
@@ -90,6 +92,8 @@ uvicorn policygraph.api:app --host 127.0.0.1 --port 8000
 ```
 
 Open <http://127.0.0.1:8000>. The same process serves the interface and `/api/*`; interactive API documentation is at `/docs`. Run the core offline gates with `python -m pytest tests evals` and `python -m evals.evaluate`. The full release checklist is in [CONTRIBUTING.md](CONTRIBUTING.md).
+
+For a public research alpha, deploy the repository's version-controlled Render Blueprint and follow the verification and participant protocol in [the deployment guide](docs/deployment.md). The deployed interface includes a structured public feedback route and continues to label the data as a bounded synthetic sample.
 
 All five topics are available. DLT and tokenisation currently have registered sources but no extracted claims in the four-document synthetic sample; the explorer labels this coverage gap explicitly.
 
