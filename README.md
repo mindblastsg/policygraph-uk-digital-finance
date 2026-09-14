@@ -1,5 +1,9 @@
 # PolicyGraph
 
+> **Reusable ingestion SDK (v0.2, unreleased):** versioned schemas, offline-first source adapters,
+> metadata-only plugin discovery, contract tests and CLI validation are now included. Start with
+> [`examples/source-adapter`](examples/source-adapter) and the [adapter guide](docs/contributors/building-an-adapter.md).
+
 ![Concept visual welcoming readers to PolicyGraph, with policy documents flowing through an evidence graph into a UK policy explorer](docs/assets/screenshots/00-policygraph-welcome-concept.png)
 
 > The interface images in this repository are AI-generated concept visuals, clearly marked in-image. They illustrate product direction and are not captures of implemented functionality or official policy material.

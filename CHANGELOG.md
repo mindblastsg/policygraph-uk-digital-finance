@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.0 - Unreleased
+
+- Add versioned JSON Schemas, adapter contracts, safe plugin discovery, validation CLI commands, test helpers and a starter kit.
+
 All notable changes are documented here following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) conventions. This project uses semantic versioning.
 
 ## [0.1.0] - 2026-09-14

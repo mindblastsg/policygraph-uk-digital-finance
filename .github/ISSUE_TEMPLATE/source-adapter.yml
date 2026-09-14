@@ -1,0 +1,21 @@
+name: Propose a source adapter
+description: Propose a maintained integration for a public policy source
+title: "[Adapter]: "
+labels: ["adapter", "proposal"]
+body:
+  - type: input
+    id: publisher
+    attributes: {label: Publisher, description: Who owns the source?}
+    validations: {required: true}
+  - type: textarea
+    id: scope
+    attributes: {label: Domains and formats, description: List hosts, URLs, formats, volume and rate limits.}
+    validations: {required: true}
+  - type: textarea
+    id: rights
+    attributes: {label: Rights and terms, description: State licence, redistribution limits and fixture approach.}
+    validations: {required: true}
+  - type: input
+    id: maintainer
+    attributes: {label: Proposed maintainer}
+    validations: {required: true}

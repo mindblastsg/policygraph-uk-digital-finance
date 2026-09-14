@@ -4,13 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "policygraph"
-version = "0.1.0"
+version = "0.2.0"
 description = "Evidence-first UK digital finance policy graph proof of concept"
 requires-python = ">=3.12"
 license = "MIT"
 license-files = ["LICENSE"]
 dependencies = [
   "fastapi>=0.115,<1",
+  "jsonschema[format]>=4.23,<5",
   "uvicorn[standard]>=0.30,<1",
 ]
 
@@ -21,8 +22,11 @@ dev = [
   "mypy>=1.11,<2",
   "pytest>=8.3,<9",
   "ruff>=0.6,<1",
+  "types-jsonschema>=4.23,<5",
 ]
 test = ["httpx>=0.27,<1", "pytest>=8.3,<9"]
+[project.entry-points."policygraph.source_adapters"]
+local_fixture = "policygraph.adapters:LocalFixtureAdapter"
 
 [project.scripts]
 policygraph = "policygraph.cli:main"
@@ -31,7 +35,7 @@ policygraph = "policygraph.cli:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-policygraph = ["py.typed"]
+policygraph = ["py.typed", "schemas/*.json"]
 
 # Runtime files are installed below sys.prefix/share/policygraph. The API first
 # uses checkout paths for editable development, then these wheel paths.

@@ -1,0 +1,2 @@
+# Testing an adapter
+Use `policygraph.testing.assert_adapter_contract` with rights-reviewed deterministic fixtures. Tests check repeatability, non-empty extraction, source ownership, retrieval location, and an explicitly allowed final-URL scheme. They do not sandbox or prove the absence of network access. Add malformed input, size, redirect, encoding, and locator cases, and block network transports separately in your test runner.
